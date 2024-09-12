@@ -1,43 +1,41 @@
 /* eslint-disable prettier/prettier */
 import * as React from 'react';
-import {View, Text} from 'react-native';
+import { View, Text } from 'react-native';
 import AppHeader from '../../ui_packages/components/AppHeader/AppHeader';
 import AppSwitch from '../../ui_packages/components/Switch/Switch';
 import AppTextInput from '../../ui_packages/components/TextInput/TextInput';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 // import Loading from '../Loading/Loading';
-import {useTheme, TextInput} from 'react-native-paper';
+import { useTheme, TextInput } from 'react-native-paper';
 import ROUTES from '../../navigations/routes';
-import {signIn} from '../../store/auth/authSlice';
-import {authQueries} from '../../services/auth/queries';
+import { signIn } from '../../store/auth/authSlice';
+import { authQueries } from '../../services/auth/queries';
+import inputRules from '../../utils/form-validation';
 export default function LoginForm(props: {
-  navigation: {goBack: () => void; navigate: (arg0: string) => void};
+  navigation: { goBack: () => void; navigate: (arg0: string) => void };
 }) {
   const theme = useTheme();
   // return (
   //   <Loading />
   // )
   const [showPass, setShowPass] = React.useState<boolean>(false);
-  const [usePhone, setUsePhone] = React.useState<boolean>(true);
   const [credentials, setCredential] = React.useState<{
-    phone: string | undefined;
     email: string | undefined;
     password: string;
-  }>({phone: '', password: '', email: ''});
+  }>({ password: '', email: '' });
   const validateInput = () => {
     if (
-      (credentials.email != '' || credentials.phone != '') &&
-      credentials.password != ''
+      inputRules.isValidEmail(credentials.email as string) &&
+      inputRules.isValidPassword(credentials.password as string)
     )
       return true;
     else return false;
   };
   async function handleLogin() {
     if (!!validateInput) {
-      const input = {...credentials};
+      const input = { ...credentials };
       if (input.email == '') delete input.email;
-      if (input.phone == '') delete input.phone;
-      const loginRes = await authQueries.getUser({...input});
+      const loginRes = await authQueries.getUser({ ...input });
       if (!!loginRes) {
         signIn(loginRes);
         props.navigation.navigate(ROUTES.DASHBOARD_TABS_SCREEN);
@@ -52,51 +50,32 @@ export default function LoginForm(props: {
         }}
         key={''}
         title="Login"></AppHeader>
-      <View style={{width: '100%', height: '100%', padding: 16}}>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-          }}>
-          <Text style={{color: theme.colors.secondary, marginRight: 8}}>
-            {usePhone ? 'By phone' : 'By email'}
-          </Text>
-          <AppSwitch
-            value={usePhone}
-            onValueChange={(value: boolean) => setUsePhone(value)}
-          />
-        </View>
-        <View style={{marginBottom: 16}}>
-          <Text style={{marginBottom: 8}}>Phone</Text>
+      <View style={{ width: '100%', height: '100%', padding: 16 }}>
+        <View style={{ marginBottom: 16 }}>
+          <Text style={{ marginBottom: 8 }}>Email</Text>
           <AppTextInput
-            label={usePhone ? 'Phone' : 'Email'}
-            placeholder={usePhone ? 'Phone' : 'Email'}
-            value={usePhone ? credentials.phone : credentials.email}
+            label={'Email'}
+            placeholder={'Email'}
+            value={credentials.email}
             onChangeText={value => {
-              if (usePhone) {
-                setCredential({...credentials, phone: value});
-              } else {
-                setCredential({...credentials, email: value});
-              }
+              setCredential({ ...credentials, email: value });
             }}
             left={
               <TextInput.Icon
-                icon={usePhone ? 'phone-outline' : 'email-outline'}
+                icon={'email-outline'}
               />
             }
           />
         </View>
-        <View style={{marginBottom: 16}}>
-          <Text style={{marginBottom: 8}}>Phone</Text>
+        <View style={{ marginBottom: 16 }}>
+          <Text style={{ marginBottom: 8 }}>Password</Text>
           <AppTextInput
             label={'Password'}
             secureTextEntry={showPass}
             placeholder="Password"
             value={credentials.password}
             onChangeText={value => {
-              setCredential({...credentials, password: value});
+              setCredential({ ...credentials, password: value });
             }}
             left={<TextInput.Icon icon="lock-outline" />}
             right={
@@ -118,7 +97,7 @@ export default function LoginForm(props: {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <View style={{height: 60, width: '90%', marginBottom: 8}}>
+          <View style={{ height: 60, width: '90%', marginBottom: 8 }}>
             <AppButton
               onPress={() => {
                 handleLogin();
@@ -126,7 +105,7 @@ export default function LoginForm(props: {
               Login
             </AppButton>
           </View>
-          <View style={{height: 60, width: '90%'}}>
+          <View style={{ height: 60, width: '90%' }}>
             <AppButton
               onPress={() => {
                 props.navigation.navigate(ROUTES.SIGNUP_FORM_SCREEN);
@@ -135,7 +114,7 @@ export default function LoginForm(props: {
               Have not signed up? Here ?
             </AppButton>
           </View>
-          <View style={{height: 60, width: '90%'}}>
+          <View style={{ height: 60, width: '90%' }}>
             <AppButton
               onPress={() => {
                 props.navigation.navigate(ROUTES.FORGOT_PASSWORD_FORM_SCREEN);
