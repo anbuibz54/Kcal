@@ -2,7 +2,7 @@
 import * as React from 'react';
 import {View, Text} from 'react-native';
 import AppHeader from '../../ui_packages/components/AppHeader/AppHeader';
-import AppSwitch from '../../ui_packages/components/Switch/Switch';
+import { HttpContext } from '../../context/HttpContext';
 import AppTextInput from '../../ui_packages/components/TextInput/TextInput';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 import {useTheme, TextInput} from 'react-native-paper';
@@ -13,7 +13,7 @@ import ROUTES from '../../navigations/routes';
 export default function CreateNewAccount(props: {
   navigation: {goBack: () => void; navigate: (arg0: string) => void};
 }) {
-  const theme = useTheme();
+  const httpContext = React.useContext(HttpContext);
   const [showPass, setShowPass] = React.useState<boolean>(false);
   const [credentials, setCredential] = React.useState<{
     email: string | undefined;
@@ -30,10 +30,10 @@ export default function CreateNewAccount(props: {
   async function handleSingup() {
     if (validateInput()) {
       const input = {...credentials};
-      if(input.email=='') delete input.email;
-      const signUpRes = await authMutaions.createUser({...input});
+      const signUpRes = await httpContext.post('User/register',input);
+      console.log({signUpRes});
       if (!!signUpRes) {
-        signIn(signUpRes);
+        signIn(signUpRes.data);
         props.navigation.navigate(ROUTES.DASHBOARD_TABS_SCREEN);
       }
     }

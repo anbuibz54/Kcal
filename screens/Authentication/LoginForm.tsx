@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { View, Text } from 'react-native';
 import AppHeader from '../../ui_packages/components/AppHeader/AppHeader';
-import AppSwitch from '../../ui_packages/components/Switch/Switch';
+import { HttpContext } from '../../context/HttpContext';
 import AppTextInput from '../../ui_packages/components/TextInput/TextInput';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 // import Loading from '../Loading/Loading';
@@ -14,10 +14,7 @@ import inputRules from '../../utils/form-validation';
 export default function LoginForm(props: {
   navigation: { goBack: () => void; navigate: (arg0: string) => void };
 }) {
-  const theme = useTheme();
-  // return (
-  //   <Loading />
-  // )
+  const httpContext = React.useContext(HttpContext);
   const [showPass, setShowPass] = React.useState<boolean>(false);
   const [credentials, setCredential] = React.useState<{
     email: string | undefined;
@@ -34,10 +31,10 @@ export default function LoginForm(props: {
   async function handleLogin() {
     if (!!validateInput) {
       const input = { ...credentials };
-      if (input.email == '') delete input.email;
-      const loginRes = await authQueries.getUser({ ...input });
+      const loginRes = await httpContext.post('User/login',input);
+      console.log({loginRes});
       if (!!loginRes) {
-        signIn(loginRes);
+        signIn(loginRes.data);
         props.navigation.navigate(ROUTES.DASHBOARD_TABS_SCREEN);
       }
     }

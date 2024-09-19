@@ -5,8 +5,18 @@ import {Text, useTheme} from 'react-native-paper';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 import MiniAppCard from '../../ui_packages/components/MiniAppCard/MiniAppCard';
 import {APPS} from '../../global_variables/apps';
+import { HttpContext } from '../../context/HttpContext';
 export default function Home(props: {navigation: any}) {
   const theme = useTheme();
+  const httpContext = React.useContext(HttpContext);
+  async function tryAuthSystem(){
+    console.log({httpContext});
+    const res = await httpContext.get('WeatherForecast');
+   
+  }
+  React.useEffect(()=>{
+    tryAuthSystem();
+  },[])
   return (
     <ScrollView style={{width: '100%', height: '100%', padding: 24}}>
       <View
