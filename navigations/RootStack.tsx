@@ -27,6 +27,7 @@ import ProductDetail from '../screens/Product/ProductDetail/ProductDetail';
 import Cart from '../screens/Cart/Cart';
 import Checkout from '../screens/Checkout/Checkout';
 import ProductList from '../screens/Product/ProductList/ProductList';
+import TdeeForm from '../screens/TdeeForm/TdeeForm';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 function BottomTabsVariant() {
@@ -156,7 +157,7 @@ export function RootStack() {
       <Stack.Screen name={Routes.PRODUCT_MANAGE} component={ProductManage} />
       <Stack.Screen name={Routes.PRODUCT_DETAIL} component={ProductDetail} />
       <Stack.Screen name={Routes.PRODUCT_LIST} component={ProductList} />
-
+      <Stack.Screen name={Routes.TDEE_FORM} component={TdeeForm} />
       <Stack.Screen name={Routes.CART} component={Cart} />
       <Stack.Screen name={Routes.CHECKOUT} component={Checkout} />
 

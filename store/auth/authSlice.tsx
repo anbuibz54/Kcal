@@ -8,6 +8,7 @@ interface AuthState {
   user: UserType | null;
   status: 'idle' | 'signOut' | 'signIn';
   signIn: (data: UserType) => void;
+  updateToken: (data: any) => void;
   signOut: () => void;
   hydrate: () => void;
 }
@@ -35,6 +36,9 @@ const _useAuth = create<AuthState>((set, get) => ({
       // Maybe sign_out user!
     }
   },
+  updateToken:async (user:any) =>{
+    await setToken(user);
+  }
 }));
 
 export const useAuth = createSelectors(_useAuth);
@@ -42,3 +46,4 @@ export const useAuth = createSelectors(_useAuth);
 export const signOut = () => _useAuth.getState().signOut();
 export const signIn = (user: UserType) => _useAuth.getState().signIn(user);
 export const hydrateAuth = () => _useAuth.getState().hydrate();
+export const updateToken =(user:any) => _useAuth.getState().updateToken(user);

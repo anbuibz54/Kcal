@@ -10,6 +10,7 @@ const ROUTES = {
     VERIFY_NUMBER_SCREEN: 'verify_number_form',
     VERIFY_NUMBER_OTP_SCREEN: 'verify_number_otp_form',
     DASHBOARD_TABS_SCREEN: 'dashboard_tabs',
+    TDEE_FORM:'tdee_form',
     HOME_VARIANT: 'home',
     ACCOUNT: 'account',
     FAVORITES: 'favorites',

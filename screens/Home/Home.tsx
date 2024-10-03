@@ -6,17 +6,10 @@ import AppButton from '../../ui_packages/components/Button/AppButton';
 import MiniAppCard from '../../ui_packages/components/MiniAppCard/MiniAppCard';
 import {APPS} from '../../global_variables/apps';
 import { HttpContext } from '../../context/HttpContext';
+import ROUTES from '../../navigations/routes';
 export default function Home(props: {navigation: any}) {
   const theme = useTheme();
   const httpContext = React.useContext(HttpContext);
-  async function tryAuthSystem(){
-    console.log({httpContext});
-    const res = await httpContext.get('WeatherForecast');
-   
-  }
-  React.useEffect(()=>{
-    tryAuthSystem();
-  },[])
   return (
     <ScrollView style={{width: '100%', height: '100%', padding: 24}}>
       <View
@@ -104,7 +97,9 @@ export default function Home(props: {navigation: any}) {
           Track your weekly process
         </Text>
         <View style={{width: '40%'}}>
-          <AppButton buttonColor="#FFFFFF" textColor={theme.colors.secondary}>
+          <AppButton buttonColor="#FFFFFF" onPress={()=>{
+            props.navigation.navigate(ROUTES.TDEE_FORM);
+          }} textColor={theme.colors.secondary}>
             View now
           </AppButton>
         </View>
