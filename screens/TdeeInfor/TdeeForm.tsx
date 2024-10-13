@@ -2,11 +2,11 @@
 import * as React from 'react';
 import { View, Text } from 'react-native';
 import AppHeader from '../../ui_packages/components/AppHeader/AppHeader';
-import { HttpContext } from '../../context/HttpContext';
+import { HttpContext } from '../../core/context/HttpContext';
 import AppTextInput from '../../ui_packages/components/TextInput/TextInput';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 import { useTheme, TextInput } from 'react-native-paper';
-import { useAuth,updateToken } from '../../store/auth/authSlice';
+import { useAuth,updateToken } from '../../core/store/auth/authSlice';
 import ROUTES from '../../navigations/routes';
 import { Dropdown } from 'react-native-paper-dropdown';
 export default function TdeeForm(props: {

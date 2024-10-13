@@ -2,15 +2,15 @@
 import * as React from 'react';
 import { View, Text } from 'react-native';
 import AppHeader from '../../ui_packages/components/AppHeader/AppHeader';
-import { HttpContext } from '../../context/HttpContext';
+import { HttpContext } from '../../core/context/HttpContext';
 import AppTextInput from '../../ui_packages/components/TextInput/TextInput';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 // import Loading from '../Loading/Loading';
 import { useTheme, TextInput } from 'react-native-paper';
 import ROUTES from '../../navigations/routes';
-import { signIn } from '../../store/auth/authSlice';
-import { authQueries } from '../../services/auth/queries';
-import inputRules from '../../utils/form-validation';
+import { signIn } from '../../core/store/auth/authSlice';
+import { authQueries } from '../../core/services/auth/queries';
+import inputRules from '../../core/utils/form-validation';
 export default function LoginForm(props: {
   navigation: { goBack: () => void; navigate: (arg0: string) => void };
 }) {

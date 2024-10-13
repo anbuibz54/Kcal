@@ -3,7 +3,7 @@
 import * as React from 'react';
 import {View} from 'react-native';
 import {Text, Snackbar, Icon} from 'react-native-paper';
-import {useMessage, reset} from '../../../store/message/messageSlice';
+import {useMessage, reset} from '../../../core/store/message/messageSlice';
 export default function AppMessage() {
   const [visible, setVisible] = React.useState<boolean>(true);
   const {message} = useMessage();

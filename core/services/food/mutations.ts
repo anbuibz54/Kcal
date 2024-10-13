@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { supabase } from "../../global_variables/supabase";
+import { supabase } from "../../../global_variables/supabase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { USER_KEY } from "../../store/auth/utils";
 async function createFood(input: any) {

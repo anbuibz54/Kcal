@@ -14,8 +14,8 @@ import ShopCard from '../../../ui_packages/components/ShopCard/ShopCard';
 import AppAvatar from '../../../ui_packages/components/Avatar/Avatar';
 import AppMessage from '../../../ui_packages/components/Message/AppMessage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {USER_KEY} from '../../../store/auth/utils';
-import {productQueries} from '../../../services/product/queries';
+import {USER_KEY} from '../../../core/store/auth/utils';
+import {productQueries} from '../../../core/services/product/queries';
 export default function ShopProfile(props: {
   navigation: {
     dispatch: (arg0: CommonActions.Action) => void;

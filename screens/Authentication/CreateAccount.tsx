@@ -2,13 +2,13 @@
 import * as React from 'react';
 import {View, Text} from 'react-native';
 import AppHeader from '../../ui_packages/components/AppHeader/AppHeader';
-import { HttpContext } from '../../context/HttpContext';
+import { HttpContext } from '../../core/context/HttpContext';
 import AppTextInput from '../../ui_packages/components/TextInput/TextInput';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 import {useTheme, TextInput} from 'react-native-paper';
-import {signIn} from '../../store/auth/authSlice';
-import {authMutaions} from '../../services/auth/mutations';
-import inputRules from '../../utils/form-validation';
+import {signIn} from '../../core/store/auth/authSlice';
+import {authMutaions} from '../../core/services/auth/mutations';
+import inputRules from '../../core/utils/form-validation';
 import ROUTES from '../../navigations/routes';
 export default function CreateNewAccount(props: {
   navigation: {goBack: () => void; navigate: (arg0: string) => void};

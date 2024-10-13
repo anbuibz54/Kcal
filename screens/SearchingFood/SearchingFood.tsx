@@ -7,7 +7,7 @@ import {Text, Divider} from 'react-native-paper';
 import AppHeader from '../../ui_packages/components/AppHeader/AppHeader';
 import AppSearchBar from '../../ui_packages/components/SearchBar/SearchBar';
 import SearchResult from '../../ui_packages/components/SearchResult/SearchResult';
-import {foodQueries} from '../../services/food/queries';
+import {foodQueries} from '../../core/services/food/queries';
 import ROUTES from '../../navigations/routes';
 import {ITEM_PER_PAGE} from '../../global_variables/paging';
 export default function SearchingFood(props: {

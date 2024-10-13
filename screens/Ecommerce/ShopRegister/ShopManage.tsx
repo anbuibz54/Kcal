@@ -12,14 +12,14 @@ import {z as zod} from 'zod';
 import {fromError} from 'zod-validation-error';
 import 'react-native-get-random-values';
 import uuid from 'react-native-uuid';
-import S3Upload from '../../../services/storage/upload';
-import S3Delete from '../../../services/storage/delete';
-import {setMessage} from '../../../store/message/messageSlice';
+import S3Upload from '../../../core/services/storage/upload';
+import S3Delete from '../../../core/services/storage/delete';
+import {setMessage} from '../../../core/store/message/messageSlice';
 import AppMessage from '../../../ui_packages/components/Message/AppMessage';
 import Loading from '../../ScanningFood/Loading';
-import {shopMutations} from '../../../services/shop/mutations';
+import {shopMutations} from '../../../core/services/shop/mutations';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {USER_KEY} from '../../../store/auth/utils';
+import {USER_KEY} from '../../../core/store/auth/utils';
 import ROUTES from '../../../navigations/routes';
 export default function ShopManage(props: {
   navigation: {

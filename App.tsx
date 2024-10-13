@@ -13,7 +13,7 @@ import {StatusBar, useColorScheme} from 'react-native';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {RootStack} from './navigations/RootStack';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import { HttpContextProvider } from './context/HttpContext';
+import { HttpContextProvider } from './core/context/HttpContext';
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   const NavigationLightTheme = adaptNavigationTheme({

@@ -5,7 +5,7 @@ import {Text, useTheme} from 'react-native-paper';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 import MiniAppCard from '../../ui_packages/components/MiniAppCard/MiniAppCard';
 import {APPS} from '../../global_variables/apps';
-import { HttpContext } from '../../context/HttpContext';
+import { HttpContext } from '../../core/context/HttpContext';
 import ROUTES from '../../navigations/routes';
 export default function Home(props: {navigation: any}) {
   const theme = useTheme();

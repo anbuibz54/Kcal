@@ -27,7 +27,7 @@ import ProductDetail from '../screens/Product/ProductDetail/ProductDetail';
 import Cart from '../screens/Cart/Cart';
 import Checkout from '../screens/Checkout/Checkout';
 import ProductList from '../screens/Product/ProductList/ProductList';
-import TdeeForm from '../screens/TdeeForm/TdeeForm';
+import TdeeForm from '../screens/TdeeInfor/TdeeForm';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 function BottomTabsVariant() {

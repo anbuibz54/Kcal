@@ -5,7 +5,7 @@ import {View, FlatList, TouchableOpacity} from 'react-native';
 import AppHeader from '../../../ui_packages/components/AppHeader/AppHeader';
 import ProductCard from '../../../ui_packages/components/ProductCard/ProductCard';
 import Loading from '../../ScanningFood/Loading';
-import {productQueries} from '../../../services/product/queries';
+import {productQueries} from '../../../core/services/product/queries';
 import ROUTES from '../../../navigations/routes';
 export default function ProductList(props: {
   navigation: {

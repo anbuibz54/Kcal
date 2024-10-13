@@ -5,9 +5,9 @@ import {Image, View, ScrollView, TouchableOpacity} from 'react-native';
 import {Text, Icon} from 'react-native-paper';
 import AppButton from '../Button/AppButton';
 import AppTextInput from '../TextInput/TextInput';
-import {foodMutaions} from '../../../services/food/mutations';
+import {foodMutaions} from '../../../core/services/food/mutations';
 import AppMessage from '../Message/AppMessage';
-import {setMessage} from '../../../store/message/messageSlice';
+import {setMessage} from '../../../core/store/message/messageSlice';
 import {z as zod} from 'zod';
 import {fromError} from 'zod-validation-error';
 interface IFavoriteFormProps {

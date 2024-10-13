@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { supabase } from "../../global_variables/supabase";
+import { supabase } from "../../../global_variables/supabase";
 
 async function createUser(input: any) {
     const response = await supabase.from("Users").insert({ ...input }).select().single();

@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { supabase } from "../../global_variables/supabase";
+import { supabase } from "../../../global_variables/supabase";
 async function getProductById(id: number) {
     const response = await supabase.from("Products").select("*,shops:Shops(*)").eq('id', id).single();
     if (!!response.data) {

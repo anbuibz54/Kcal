@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { cloudflareR2 } from "../../global_variables/s3-instances";
+import { cloudflareR2 } from "../../../global_variables/s3-instances";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 interface UploadInputType {
     bucket: string;

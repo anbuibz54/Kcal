@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { supabase } from "../../global_variables/supabase";
+import { supabase } from "../../../global_variables/supabase";
 interface searchInput{
     textSearch:string;
     from:number;

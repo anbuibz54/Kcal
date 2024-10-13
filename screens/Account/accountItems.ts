@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import ROUTES from "../../navigations/routes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { USER_KEY } from "../../store/auth/utils";
+import { USER_KEY } from "../../core/store/auth/utils";
 export const accountItems = [
     {
         label: 'Profile',

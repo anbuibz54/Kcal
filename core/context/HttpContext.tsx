@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 import { getToken } from "../store/auth/utils";
-import ROUTES from "../navigations/routes";
+import ROUTES from "../../navigations/routes";
 import axios from "axios";
 import { AxiosInstance } from "axios";
 import { useNavigation, CommonActions } from "@react-navigation/native";

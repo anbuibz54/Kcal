@@ -4,7 +4,7 @@ import * as React from 'react';
 import {View, Text} from 'react-native';
 import {useTheme, Icon} from 'react-native-paper';
 import AppButton from '../../ui_packages/components/Button/AppButton';
-import {signOut, useAuth} from '../../store/auth/authSlice';
+import {signOut, useAuth} from '../../core/store/auth/authSlice';
 import {CommonActions} from '@react-navigation/native';
 import ROUTES from '../../navigations/routes';
 import AccountItem from './AccountItem';

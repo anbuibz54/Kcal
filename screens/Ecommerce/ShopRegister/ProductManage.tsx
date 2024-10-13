@@ -11,13 +11,13 @@ import {z as zod} from 'zod';
 import {fromError} from 'zod-validation-error';
 import 'react-native-get-random-values';
 import uuid from 'react-native-uuid';
-import S3Upload from '../../../services/storage/upload';
-import S3Delete from '../../../services/storage/delete';
-import {setMessage} from '../../../store/message/messageSlice';
+import S3Upload from '../../../core/services/storage/upload';
+import S3Delete from '../../../core/services/storage/delete';
+import {setMessage} from '../../../core/store/message/messageSlice';
 import AppMessage from '../../../ui_packages/components/Message/AppMessage';
 import Loading from '../../ScanningFood/Loading';
 import ROUTES from '../../../navigations/routes';
-import {productMutations} from '../../../services/product/mutations';
+import {productMutations} from '../../../core/services/product/mutations';
 interface IProductManage {
   id: number;
   name: string;
