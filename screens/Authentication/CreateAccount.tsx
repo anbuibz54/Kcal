@@ -7,7 +7,7 @@ import AppTextInput from '../../ui_packages/components/TextInput/TextInput';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 import {useTheme, TextInput} from 'react-native-paper';
 import {signIn} from '../../core/store/auth/authSlice';
-import {authMutaions} from '../../core/services/auth/mutations';
+import { authRequestBodySchema } from '../../core/models/auth/auth-model';
 import inputRules from '../../core/utils/form-validation';
 import ROUTES from '../../navigations/routes';
 export default function CreateNewAccount(props: {
@@ -20,6 +20,8 @@ export default function CreateNewAccount(props: {
     password: string;
   }>({ password: '', email: ''});
   const validateInput = () => {
+    const tryZod = authRequestBodySchema.parse(credentials);
+    console.log(tryZod);
     if (
        inputRules.isValidEmail(credentials.email as string)  &&
       inputRules.isValidPassword(credentials.password as string)
