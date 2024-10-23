@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import {create} from 'zustand';
 import {createSelectors} from '../utils';
 import type {UserType} from './utils';

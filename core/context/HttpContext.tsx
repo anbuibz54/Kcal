@@ -1,10 +1,10 @@
-import { useState, useEffect, createContext } from "react";
+import { createContext } from "react";
 import { getToken } from "../store/auth/utils";
 import ROUTES from "../../navigations/routes";
 import axios from "axios";
 import { AxiosInstance } from "axios";
 import { useNavigation, CommonActions } from "@react-navigation/native";
-const axiosInstance = axios.create({ baseURL: 'http://localhost:5043/api/' });
+const axiosInstance = axios.create({ baseURL: 'https://10.245.7.254:7299/api/' });
 export const HttpContext = createContext<AxiosInstance>(axiosInstance);
 export const HttpContextProvider = ({ children }: any) => {
     const navigate = useNavigation();
