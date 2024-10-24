@@ -8,6 +8,7 @@ export const userGetResponseSchema = z.object({
     weight:z.number(),
     age:z.number(),
     activity_rate_id:z.number(),
+    accessToken: z.string(),
 });
 
 export type userGetResponseModel = z.infer<typeof userGetResponseSchema>;
