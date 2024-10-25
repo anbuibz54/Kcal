@@ -17,7 +17,15 @@ npm start
 # OR using Yarn
 yarn start
 ```
+https://www.linkedin.com/learning/paths/develop-critical-thinking-decision-making-and-problem-solving-skills
 
+https://www.coursera.org/learn/mindware
+
+https://www.coursera.org/learn/compthinking
+
+https://app.pluralsight.com/course-player?clipId=d55061ed-fae4-476a-91a4-b9d43d6b4d15
+
+https://www.nguyenphivan.com/lnd-center
 ## Step 2: Start your Application
 
 Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
