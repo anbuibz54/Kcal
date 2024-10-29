@@ -16,6 +16,7 @@ import { Provider } from 'react-redux'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { HttpContextProvider } from './core/context/HttpContext';
 import { store } from './core/redux-store/store';
+import { navigationRef } from './global_variables/axios_instance';
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   const NavigationLightTheme = adaptNavigationTheme({
@@ -29,6 +30,7 @@ function App(): React.JSX.Element {
       <Provider store={store}>
         <PaperProvider theme={!isDarkMode ? lightTheme : darkTheme}>
           <NavigationContainer
+          ref={navigationRef}
             theme={
               !isDarkMode
                 ? NavigationLightTheme.LightTheme

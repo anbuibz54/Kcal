@@ -2,18 +2,12 @@ import { createContext } from "react";
 import { getToken } from "../store/auth/utils";
 import ROUTES from "../../navigations/routes";
 import axios from "axios";
-import { AxiosInstance } from "axios";
+import type { AxiosInstance,AxiosError } from "axios";
 import { useNavigation, CommonActions } from "@react-navigation/native";
-const axiosInstance = axios.create({ baseURL: 'https://10.245.7.254:7299/api/' });
+const axiosInstance = axios.create();
 export const HttpContext = createContext<AxiosInstance>(axiosInstance);
 export const HttpContextProvider = ({ children }: any) => {
     const navigate = useNavigation();
-
-    // axiosInstance.defaults.headers.common={
-    //     "Content-Type":"application/json",
-    //     "Accept":'*/*',
-    //     "Authorization":bearer
-    // }
     axiosInstance.interceptors.request.use(async function (config) {
         const user = await getToken();
         const token = user?.accessToken;
@@ -22,13 +16,12 @@ export const HttpContextProvider = ({ children }: any) => {
         config.headers.Accept = "*/*";
         config.headers.Authorization = bearer;
         return config;
-    }, function (error) {
-        return Promise.reject(error);
     });
     axiosInstance.interceptors.response.use(function (response) {
+        response.data
         return response;
-    }, function (error) {
-        if (error.response.status == 401) {
+    }, function (error:AxiosError) {
+        if (error?.response && error.response.status == 401) {
             navigate.dispatch(
                 CommonActions.reset({
                     index: 1,
