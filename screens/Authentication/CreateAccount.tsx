@@ -10,9 +10,11 @@ import {signIn} from '../../core/store/auth/authSlice';
 import { authRequestBodySchema } from '../../core/models/auth/auth-model';
 import inputRules from '../../core/utils/form-validation';
 import ROUTES from '../../navigations/routes';
+import { useGetAllQuery,useAddMutation } from '../../core/redux-store/hooks/activity-rate/api';
 export default function CreateNewAccount(props: {
   navigation: {goBack: () => void; navigate: (arg0: string) => void};
 }) {
+  const {data,error,isLoading} = useGetAllQuery();
   const httpContext = React.useContext(HttpContext);
   const [showPass, setShowPass] = React.useState<boolean>(false);
   const [credentials, setCredential] = React.useState<{
@@ -40,6 +42,9 @@ export default function CreateNewAccount(props: {
       }
     }
   }
+  React.useEffect(()=>{
+    console.log({data})
+  },[data])
   return (
     <View>
       <AppHeader

@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './slices/auth/authSlice';
 import errorReducer from './slices/error/errorSlice';
-import { activityRateApi } from './hooks/activity-rate/query';
+import { activityRateApi } from './hooks/activity-rate/api';
 export const store = configureStore(
     {
         reducer: {

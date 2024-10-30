@@ -1,11 +1,10 @@
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { USER_KEY } from '../../../models/auth/auth-model';
-import { userGetResponseModel, userGetResponseSchema } from '../../../models/user/user-models';
+import { authInforSchema,authResponseModel } from '../../../models/auth/auth-model';
 export const getToken = async () => {
   const res = await AsyncStorage.getItem(USER_KEY);
   try{
-        const user = userGetResponseSchema.parse(JSON.parse(res as string));
+        const user = authInforSchema.parse(JSON.parse(res as string));
         return user;
   }
   catch{
@@ -15,7 +14,7 @@ export const getToken = async () => {
 export const removeToken = async () => {
   await AsyncStorage.removeItem(USER_KEY);
 };
-export const setToken = async (value: userGetResponseModel) => {
+export const setToken = async (value: authResponseModel) => {
   console.log({value});
   await AsyncStorage.setItem(USER_KEY, JSON.stringify(value));
 };

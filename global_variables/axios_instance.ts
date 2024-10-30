@@ -3,8 +3,7 @@ import axios from "axios";
 import type { AxiosResponse, InternalAxiosRequestConfig, AxiosError, AxiosInstance } from "axios";
 import { BASE_URL } from "./api";
 import { createNavigationContainerRef,CommonActions } from "@react-navigation/native";
-import ROUTES from "../navigations/routes";
-
+import ROUTES from "../navigations/routes"; 
 export const navigationRef = createNavigationContainerRef();
 
 export function navigate(params:any) {

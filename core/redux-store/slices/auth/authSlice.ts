@@ -1,20 +1,14 @@
-import { userGetResponseModel } from '../../../models/user/user-models';
+import type { authResponseModel } from '../../../models/auth/auth-model';
 import { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../store';
 import { createAppSlice } from '../../createAppSlice';
-import { removeToken } from './utils';
+import { removeToken, setToken } from './utils';
 import type { authStatusModel } from '../../../models/auth/auth-model';
 
-const initialState: { status: authStatusModel, value: userGetResponseModel } = {
+const initialState: { status: authStatusModel, value: authResponseModel } = {
     status: 'idle',
     value: {
         id: 0,
-        email: '',
-        phone: '',
-        height: 0,
-        weight: 0,
-        age: 0,
-        activity_rate_id: 0,
         accessToken: '',
     },
 };
@@ -24,9 +18,18 @@ export const authSilce = createAppSlice({
     initialState,
     reducers: create => {
         return ({
-            logIn: create.reducer((state, action: PayloadAction<userGetResponseModel>) => {
+            sample: create.reducer((state, action: PayloadAction<authResponseModel>) => {
                 state.value = action.payload;
                 state.status = 'signIn';
+            }),
+            logIn: create.asyncThunk(async(input:authResponseModel)=>{
+                await setToken(input);
+                return input;
+            },{
+                fulfilled:(state,action)=>{
+                    state.status='signIn',
+                    state.value =action.payload
+                }
             }),
             logOut: create.asyncThunk(async () => { 
                 await removeToken();
