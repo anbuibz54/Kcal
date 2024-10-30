@@ -5,6 +5,7 @@ const oapi = getApiInstance();
 
 async function register(input: authRequestBodyModel){
     const response= await oapi.post<ApiResultModel<authResponseModel>>('User/register',input);
+    console.log({resAtSer:response});
     return response.data;
 }
 

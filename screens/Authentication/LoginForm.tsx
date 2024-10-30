@@ -2,43 +2,39 @@
 import * as React from 'react';
 import { View, Text } from 'react-native';
 import AppHeader from '../../ui_packages/components/AppHeader/AppHeader';
-import { HttpContext } from '../../core/context/HttpContext';
 import AppTextInput from '../../ui_packages/components/TextInput/TextInput';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 // import Loading from '../Loading/Loading';
-import { useTheme, TextInput } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import ROUTES from '../../navigations/routes';
-import { signIn } from '../../core/store/auth/authSlice';
-import { authQueries } from '../../core/services/auth/queries';
-import inputRules from '../../core/utils/form-validation';
+import { authRequestBodySchema } from '../../core/models/auth/auth-model';
+import { useSigninMutation } from '../../core/redux-store/hooks/auth/api';
+import { selectUser } from '../../core/redux-store/slices/auth/authSlice';
+import { useAppSelector } from '../../core/redux-store/hooks/base';
 export default function LoginForm(props: {
   navigation: { goBack: () => void; navigate: (arg0: string) => void };
 }) {
-  const httpContext = React.useContext(HttpContext);
+  const authState = useAppSelector(selectUser);
   const [showPass, setShowPass] = React.useState<boolean>(false);
+  const [signIn, result] = useSigninMutation();
   const [credentials, setCredential] = React.useState<{
     email: string | undefined;
     password: string;
   }>({ password: '', email: '' });
-  const validateInput = () => {
-    if (
-      inputRules.isValidEmail(credentials.email as string) &&
-      inputRules.isValidPassword(credentials.password as string)
-    )
-      return true;
-    else return false;
-  };
   async function handleLogin() {
-    if (!!validateInput) {
-      const input = { ...credentials };
-      const loginRes = await httpContext.post('User/login',input);
-      console.log({loginRes});
-      if (!!loginRes) {
-        signIn(loginRes.data);
-        props.navigation.navigate(ROUTES.DASHBOARD_TABS_SCREEN);
-      }
+    try {
+      const input = authRequestBodySchema.parse({ ...credentials });
+      signIn(input);
+    }
+    catch {
+
     }
   }
+  React.useEffect(() => {
+    if (authState.status == 'signIn') {
+      props.navigation.navigate(ROUTES.DASHBOARD_TABS_SCREEN);
+    }
+  }, [authState])
   return (
     <View>
       <AppHeader

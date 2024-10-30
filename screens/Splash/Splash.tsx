@@ -6,10 +6,13 @@ import {View, Text} from 'react-native';
 import {CommonActions} from '@react-navigation/native';
 import ROUTES from '../../navigations/routes';
 import {hydrateAuth, useAuth} from '../../core/store/auth/authSlice';
+import { useAppSelector, useAppDispatch } from '../../core/redux-store/hooks/base';
+import { selectUser,hydrate } from '../../core/redux-store/slices/auth/authSlice';
 export default function Splash(props: {
   navigation: {dispatch: (arg0: CommonActions.Action) => void};
 }) {
-  const authState = useAuth();
+  const authState = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
   function decideRedirection() {
     if (authState.status == 'signIn') {
       props.navigation.dispatch(
@@ -18,7 +21,7 @@ export default function Splash(props: {
           routes: [{name: ROUTES.DASHBOARD_TABS_SCREEN}],
         }),
       );
-    } else if (authState.status == 'signOut') {
+    } else if (authState.status == 'logOut') {
       props.navigation.dispatch(
         CommonActions.reset({
           index: 1,
@@ -28,7 +31,7 @@ export default function Splash(props: {
     }
   }
   React.useEffect(() => {
-    hydrateAuth();
+    dispatch(hydrate());
   }, []);
   React.useEffect(() => {
     decideRedirection();

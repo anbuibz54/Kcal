@@ -3,17 +3,18 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import {View, Text, ScrollView} from 'react-native';
-import {useTheme, Icon} from 'react-native-paper';
 import AppHeader from '../../ui_packages/components/AppHeader/AppHeader';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 import {CommonActions} from '@react-navigation/native';
 import ROUTES from '../../navigations/routes';
 import AppAvatar from '../../ui_packages/components/Avatar/Avatar';
 import RecipeCard from '../../ui_packages/components/RecipeCard/RecipeCard';
+import { useAppDispatch } from '../../core/redux-store/hooks/base';
+import { logOut } from '../../core/redux-store/slices/auth/authSlice';
 export default function Profile(props: {
   navigation: {dispatch: (arg0: CommonActions.Action) => void};
 }) {
-  const theme = useTheme();
+  const dispatch= useAppDispatch();
   return (
     <View style={{width: '100%', height: '100%'}}>
       <AppHeader title="My Profile" onBack={() => {}} />
@@ -79,6 +80,9 @@ export default function Profile(props: {
           </View>
         </View>
       </ScrollView>
+      <AppButton onPress={()=>{
+        dispatch(logOut());
+      }}>Logout</AppButton>
     </View>
   );
 }

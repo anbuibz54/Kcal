@@ -3,14 +3,16 @@ import type { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { authServices } from "./services";
 import { authRequestBodyModel } from "../../../models/auth/auth-model";
 import { logIn,logOut } from "../../slices/auth/authSlice";
-const authApi = createApi({
+export const authApi = createApi({
     baseQuery:fetchBaseQuery({}),
-    tagTypes:["auth"],
+    tagTypes:["authApi"],
+    reducerPath:'authApi',
     endpoints:(build)=>({
         register: build.mutation<boolean,authRequestBodyModel>({
             queryFn:async (arg, api, extraOptions, baseQuery)=>{
                 try{
                     const response = await authServices.register(arg);
+                    console.log({resAtApi:response});
                     if(response.isSuccess){
                         api.dispatch(logIn(response.data))
                         return {
@@ -29,7 +31,7 @@ const authApi = createApi({
 
             }
         }),
-        login: build.mutation<boolean,authRequestBodyModel>({
+        signin: build.mutation<boolean,authRequestBodyModel>({
             queryFn:async (arg, api, extraOptions, baseQuery)=>{
                 try{
                     const response = await authServices.login(arg);
@@ -54,4 +56,4 @@ const authApi = createApi({
     })
 })
 
-export const {useLoginMutation,useRegisterMutation} = authApi
+export const {useSigninMutation,useRegisterMutation} = authApi

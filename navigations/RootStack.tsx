@@ -126,7 +126,7 @@ function BottomTabsVariant() {
 export function RootStack() {
   return (
     <Stack.Navigator
-      // initialRouteName={Config.SELECTED_VARIANT}
+      initialRouteName={Routes.SPLASH_SCREEN}
       screenOptions={{
         headerShown: false,
       }}>

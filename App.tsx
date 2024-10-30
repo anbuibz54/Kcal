@@ -14,7 +14,6 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { RootStack } from './navigations/RootStack';
 import { Provider } from 'react-redux'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { HttpContextProvider } from './core/context/HttpContext';
 import { store } from './core/redux-store/store';
 import { navigationRef } from './global_variables/axios_instance';
 function App(): React.JSX.Element {
@@ -39,9 +38,7 @@ function App(): React.JSX.Element {
             <StatusBar
               barStyle={!isDarkMode ? 'light-content' : 'dark-content'}
             />
-            <HttpContextProvider>
               <RootStack />
-            </HttpContextProvider>
           </NavigationContainer>
         </PaperProvider>
       </Provider>
