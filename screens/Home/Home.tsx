@@ -7,6 +7,7 @@ import MiniAppCard from '../../ui_packages/components/MiniAppCard/MiniAppCard';
 import {APPS} from '../../global_variables/apps';
 import { HttpContext } from '../../core/context/HttpContext';
 import ROUTES from '../../navigations/routes';
+import WaterTracker from '../../ui_packages/components/WaterTracker/WaterTracker';
 export default function Home(props: {navigation: any}) {
   const theme = useTheme();
   const httpContext = React.useContext(HttpContext);
@@ -73,6 +74,7 @@ export default function Home(props: {navigation: any}) {
           }
         />
       </View>
+      <WaterTracker />
       <View
         style={{
           backgroundColor: '#FF8473',
