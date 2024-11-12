@@ -130,7 +130,7 @@ export default function Home(props: {navigation: any}) {
                   app.onClick(props.navigation);
                 }}
                 style={{marginRight: 16}}>
-                <MiniAppCard />
+              <MiniAppCard source={app.imageSource} label={app.label} />
               </TouchableOpacity>
             );
           })}
