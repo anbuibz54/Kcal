@@ -35,10 +35,10 @@ export default function Home(props: {navigation: any}) {
       </View>
       <View
         style={{
-          backgroundColor: '#FFC0B8',
+          backgroundColor: '#FFF2F0',
           borderRadius: 16,
           maxHeight: '40%',
-          minHeight: 200,
+          minHeight: 220,
           width: '100%',
           marginBottom: 16,
           display: 'flex',
@@ -54,6 +54,15 @@ export default function Home(props: {navigation: any}) {
             marginRight: 16,
             flexShrink: 1,
           }}>
+            <Text
+            style={{
+              fontSize: 15,
+              fontWeight: '700',
+              color: '#e75643',
+              marginBottom: 16,
+            }}>
+            A R T I C L E
+          </Text>
           <Text
             style={{
               fontSize: 20,
@@ -64,20 +73,19 @@ export default function Home(props: {navigation: any}) {
             The pros and cos of fast food{' '}
           </Text>
           <View style={{width: '80%'}}>
-            <AppButton buttonColor="#FF8473">Read now</AppButton>
+            <AppButton buttonColor="#FF8473" icon={"play"}>Read now</AppButton>
           </View>
         </View>
         <Image
-          style={{width: 100, height: '100%', borderRadius: 4}}
-          src={
-            'https://eliai-server.eliai.vn/images/dacbf5df-d5f5-4f6f-9d1d-8fa2f2b46a28/dacbf5df-d5f5-4f6f-9d1d-8fa2f2b46a28_0.jpg'
-          }
+          style={{width: 150, height: '100%', borderRadius: 4}}
+          resizeMode="contain"
+          source={require('../../assets/images/Group1.png')}
         />
       </View>
       <WaterTracker />
       <View
         style={{
-          backgroundColor: '#FF8473',
+          backgroundColor: '#C6C4DE',
           borderRadius: 16,
           width: '100%',
           paddingHorizontal: 16,
@@ -130,7 +138,7 @@ export default function Home(props: {navigation: any}) {
                   app.onClick(props.navigation);
                 }}
                 style={{marginRight: 16}}>
-                <MiniAppCard />
+              <MiniAppCard source={app.imageSource} label={app.label} />
               </TouchableOpacity>
             );
           })}

@@ -1,8 +1,16 @@
-/* eslint-disable prettier/prettier */
 import * as React from 'react';
-import {View, Image} from 'react-native';
-import {Text} from 'react-native-paper';
-export default function MiniAppCard() {
+import { View, Image, ImageSourcePropType } from 'react-native';
+import { Text } from 'react-native-paper';
+
+interface MiniAppCardProps {
+  source?: ImageSourcePropType;
+  label?: string;
+}
+
+export default function MiniAppCard({
+  source = require('../../../assets/images/Group9.png'),
+  label = 'Meal Plan',
+}: MiniAppCardProps) {
   return (
     <View
       style={{
@@ -17,19 +25,19 @@ export default function MiniAppCard() {
         height: '70%',
         width: 'auto',
         aspectRatio: 1,
-      }}>
+      }}
+    >
       <Image
         style={{
           width: 100,
           aspectRatio: 1,
-          marginBottom: 8,
+          marginBottom: 20,
           borderRadius: 4,
         }}
-        src={
-          'https://eliai-server.eliai.vn/dataset/232e738e-37b8-440a-a7de-7d3a5845c87a/a4010ccb-ae85-41d6-9efe-62e0d24b58c6.jpeg'
-        }
+        source={source}
+        resizeMode="contain" // Thêm thuộc tính resizeMode để tránh cắt ảnh
       />
-      <Text style={{fontSize: 18, fontWeight: '800'}}>Meal Plan</Text>
+      <Text style={{ fontSize: 18, fontWeight: '800' }}>{label}</Text>
     </View>
   );
 }
