@@ -9,15 +9,14 @@ import AppTextInput from '../../../ui_packages/components/TextInput/TextInput';
 import AppAvatar from '../../../ui_packages/components/Avatar/Avatar';
 import Gallery from 'react-native-awesome-gallery';
 import ROUTES from '../../../navigations/routes';
-
+import type { RootStackParamList } from '../../../navigations/RootStack';
+import { StackScreenProps } from '@react-navigation/stack';
 const images = [
   'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
   'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
 ];
-export default function ProductDetail(props: {
-  navigation: {navigate: (arg: string, params?: any) => void};
-  route: {params: any};
-}) {
+type Props= StackScreenProps<RootStackParamList,'product_detail'>;
+export default function ProductDetail(props: Props) {
   const {product} = props.route.params;
   return (
     <View style={{width: '100%', height: '100%'}}>

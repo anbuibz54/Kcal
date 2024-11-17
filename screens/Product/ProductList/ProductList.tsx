@@ -7,12 +7,11 @@ import ProductCard from '../../../ui_packages/components/ProductCard/ProductCard
 import Loading from '../../ScanningFood/Loading';
 import {productQueries} from '../../../core/services/product/queries';
 import ROUTES from '../../../navigations/routes';
-export default function ProductList(props: {
-  navigation: {
-    navigate: (arg: string, params?: any) => void;
-  };
-  route: {params: any};
-}) {
+import type { RootStackParamList } from '../../../navigations/RootStack';
+import { StackScreenProps } from '@react-navigation/stack';
+
+type Props= StackScreenProps<RootStackParamList,'product_list'>;
+export default function ProductList(props: Props) {
   const [products, setProducts] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
   async function getProducts() {

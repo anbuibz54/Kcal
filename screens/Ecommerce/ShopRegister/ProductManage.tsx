@@ -18,6 +18,10 @@ import AppMessage from '../../../ui_packages/components/Message/AppMessage';
 import Loading from '../../ScanningFood/Loading';
 import ROUTES from '../../../navigations/routes';
 import {productMutations} from '../../../core/services/product/mutations';
+import type { RootStackParamList } from '../../../navigations/RootStack';
+import { StackScreenProps } from '@react-navigation/stack';
+
+type Props= StackScreenProps<RootStackParamList,'product_manage'>;
 interface IProductManage {
   id: number;
   name: string;
@@ -26,14 +30,7 @@ interface IProductManage {
   price: number;
   images: string[];
 }
-export default function ProductManage(props: {
-  navigation: {
-    goBack: () => void;
-    navigate: (arg: string) => void;
-    push: (arg: string) => void;
-  };
-  route: {params: any};
-}) {
+export default function ProductManage(props: Props) {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [toUpImages, setToUpImages] = React.useState<string[]>([]);
   const [toDeleteImages, setToDeleteImages] = React.useState<string[]>([]);

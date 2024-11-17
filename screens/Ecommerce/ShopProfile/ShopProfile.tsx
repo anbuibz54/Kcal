@@ -7,22 +7,18 @@ import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import {useTheme, Icon} from 'react-native-paper';
 import AppHeader from '../../../ui_packages/components/AppHeader/AppHeader';
 import AppButton from '../../../ui_packages/components/Button/AppButton';
-import {CommonActions} from '@react-navigation/native';
-import ROUTES from '../../../navigations/routes';
 import ProductCard from '../../../ui_packages/components/ProductCard/ProductCard';
-import ShopCard from '../../../ui_packages/components/ShopCard/ShopCard';
 import AppAvatar from '../../../ui_packages/components/Avatar/Avatar';
 import AppMessage from '../../../ui_packages/components/Message/AppMessage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {USER_KEY} from '../../../core/store/auth/utils';
 import {productQueries} from '../../../core/services/product/queries';
-export default function ShopProfile(props: {
-  navigation: {
-    dispatch: (arg0: CommonActions.Action) => void;
-    navigate: (arg: string, params?: any) => void;
-  };
-  route: {params: any};
-}) {
+import type { RootStackParamList } from '../../../navigations/RootStack';
+import { StackScreenProps } from '@react-navigation/stack';
+import ROUTES from '../../../navigations/routes';
+
+type Props= StackScreenProps<RootStackParamList,'shop_profile'>;
+export default function ShopProfile(props: Props ) {
   const theme = useTheme();
   const [shop, setShop] = React.useState<any>(null);
   const [products, setProducts] = React.useState<any[]>([]);

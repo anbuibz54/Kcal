@@ -1,25 +1,21 @@
 /* eslint-disable prettier/prettier */
 import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Icon, useTheme} from 'react-native-paper';
+
+
 import Routes from './routes';
+import { type RootBottomTabsParamList } from './BottomTabStack';
+import BottomTabStack from './BottomTabStack';
 import LoginForm from '../screens/Authentication/LoginForm';
-import Home from '../screens/Home/Home';
 import Intro from '../screens/Intro/Intro';
-import BottomTabs from '../ui_packages/components/BottomTab';
 import Splash from '../screens/Splash/Splash';
 import CreateNewAccount from '../screens/Authentication/CreateAccount';
 import ForgetPass from '../screens/Authentication/ForgetPass';
 import CreateNewPassword from '../screens/Authentication/CreateNewPassword';
-import SearchingFood from '../screens/SearchingFood/SearchingFood';
-import ScanningFood from '../screens/ScanningFood/ScanningFood';
 import Profile from '../screens/Profile/Profile';
-import Favorites from '../screens/Favorites/Favorites';
 import OTPVerify from '../screens/Authentication/OTPVerify';
 import RecipeDetail from '../screens/Recipes/RecipeDetail';
 import NewRecipe from '../screens/Recipes/NewRecipe';
-import Account from '../screens/Account/Account';
 import ShopProfile from '../screens/Ecommerce/ShopProfile/ShopProfile';
 import ShopManage from '../screens/Ecommerce/ShopRegister/ShopManage';
 import ProductManage from '../screens/Ecommerce/ShopRegister/ProductManage';
@@ -28,102 +24,30 @@ import Cart from '../screens/Cart/Cart';
 import Checkout from '../screens/Checkout/Checkout';
 import ProductList from '../screens/Product/ProductList/ProductList';
 import TdeeForm from '../screens/TdeeInfor/TdeeForm';
-const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
-function BottomTabsVariant() {
-  const theme = useTheme();
-  return (
-    <Tab.Navigator
-      sceneContainerStyle={{
-        backgroundColor: theme.colors.background,
-      }}
-      screenOptions={{headerShown: false}}
-      tabBar={(props: any) => <BottomTabs {...props} />}>
-      <Tab.Screen
-        name={Routes.HOME_VARIANT}
-        component={Home}
-        options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({color, size, focused}) => {
-            return (
-              <Icon
-                source={focused ? 'home' : 'home-outline'}
-                size={size}
-                color={color}
-              />
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        name={Routes.SEARCHING_FOOD}
-        component={SearchingFood}
-        options={{
-          tabBarLabel: 'Seach',
-          tabBarIcon: ({color, size, focused}) => {
-            return (
-              <Icon
-                source={focused ? 'text-box-search' : 'text-box-search-outline'}
-                size={size}
-                color={color}
-              />
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        name={Routes.SCANNING_FOOD}
-        component={ScanningFood}
-        options={{
-          tabBarLabel: 'Scan',
-          tabBarIcon: ({color, size, focused}) => {
-            return (
-              <Icon
-                source={focused ? 'camera' : 'camera-outline'}
-                size={size}
-                color={color}
-              />
-            );
-          },
-        }}
-      />
 
-      <Tab.Screen
-        name={Routes.FAVORITES}
-        component={Favorites}
-        options={{
-          tabBarLabel: 'Favorites',
-          tabBarIcon: ({color, size, focused}) => {
-            return (
-              <Icon
-                source={focused ? 'heart' : 'heart-outline'}
-                size={size}
-                color={color}
-              />
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        name={Routes.ACCOUNT}
-        component={Account}
-        options={{
-          tabBarLabel: 'Account',
-          tabBarIcon: ({color, size, focused}) => {
-            return (
-              <Icon
-                source={focused ? 'account' : 'account-outline'}
-                size={size}
-                color={color}
-              />
-            );
-          },
-        }}
-      />
-    </Tab.Navigator>
-  );
+export type RootStackParamList ={
+  [Routes.DASHBOARD_TABS_SCREEN]: RootBottomTabsParamList,
+  [Routes.SPLASH_SCREEN]:undefined,
+  [Routes.INTRO_SCREEN]:undefined,
+  [Routes.LOGIN_FORM_SCREEN]:undefined,
+  [Routes.NEW_PASS_SCREEN]:undefined,
+  [Routes.VERIFY_NUMBER_OTP_SCREEN]:undefined,
+  [Routes.SIGNUP_FORM_SCREEN]:undefined,
+  [Routes.FORGOT_PASSWORD_FORM_SCREEN]:undefined,
+  [Routes.PROFILE]:undefined,
+  [Routes.SHOP_PROFILE]:{shop:any} | undefined,
+  [Routes.SHOP_MANAGE]:undefined,
+  [Routes.PRODUCT_MANAGE]:undefined,
+  [Routes.PRODUCT_DETAIL]:{product:any},
+  [Routes.PRODUCT_LIST]:undefined,
+  [Routes.TDEE_FORM]:undefined,
+  [Routes.CART]:undefined,
+  [Routes.CHECKOUT]:undefined,
+  [Routes.RECIPE_DETAIL]:undefined,
+  [Routes.NEW_RECIPE]:undefined
 }
 export function RootStack() {
+  const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
     <Stack.Navigator
       initialRouteName={Routes.SPLASH_SCREEN}
@@ -163,7 +87,7 @@ export function RootStack() {
 
       <Stack.Screen
         name={Routes.DASHBOARD_TABS_SCREEN}
-        component={BottomTabsVariant}
+        component={BottomTabStack}
       />
 
       <Stack.Screen name={Routes.RECIPE_DETAIL} component={RecipeDetail} />

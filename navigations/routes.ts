@@ -31,6 +31,6 @@ const ROUTES = {
     SHOP_ORDER_MANAGE:'shop_order_history',
     MEAL_PLANNING:'meal_planning'
   
-  };
+  } as const;
   export default ROUTES;
   
