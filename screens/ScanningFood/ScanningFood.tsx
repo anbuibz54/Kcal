@@ -14,10 +14,6 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import 'react-native-get-random-values';
 import uuid from 'react-native-uuid';
 export default function ScanningFood() {
-  const genAI = new GoogleGenerativeAI(
-    'AIzaSyBznZvzEJFjS4Tp6zcA6bZcK968Y78A3YU',
-  );
-  const model = genAI.getGenerativeModel({model: 'gemini-1.5-flash'});
   const camera = React.useRef<Camera>(null);
   const device = useCameraDevice('back', {
     physicalDevices: [
@@ -31,21 +27,9 @@ export default function ScanningFood() {
   const [image, setImage] = React.useState<any>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [added, setAdded] = React.useState<boolean>(false);
-  async function fileToGenerativePart(file: Blob) {
-    const base64EncodedDataPromise = new Promise(resolve => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve((reader.result as string).split(',')[1]);
-      reader.readAsDataURL(file);
-    });
-    return {
-      inlineData: {data: await base64EncodedDataPromise, mimeType: file.type},
-    };
-  }
   async function scanning(path: string) {
     const file = await fetch(path);
     const data = await file.blob();
-    const prompts = `Your are a model that analyzes image to detect food and analyze it's nutrition of that attached image per 100g (just need basic fields like total calories, protein,fat,carbohydrate). Response to JSON format that can use JSON.parse {"name":"...","description":"...","calories":"...","fat":"...","protein":"...","carbohydrate":"..."}, name is the name of food and has string type, description is the short infor of food has string type,  other type has number type. In addition, if you consider it is not any kind of food, return null.`;
-    const imageParts = await fileToGenerativePart(data);
     //@ts-ignore
     const result = await model.generateContent([prompts, imageParts]);
     const response = await result.response;
@@ -57,7 +41,7 @@ export default function ScanningFood() {
         bucket: 'kcal',
         key: `${uuid.v4()}.jpeg`,
         data: data,
-        type: imageParts.inlineData.mimeType,
+        type: data.type,
       });
       setImage(uploladUrl);
       console.log({uploladUrl});
