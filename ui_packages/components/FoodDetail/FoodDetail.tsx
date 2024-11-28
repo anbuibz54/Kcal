@@ -12,15 +12,9 @@ import {Text, Icon} from 'react-native-paper';
 import AppButton from '../Button/AppButton';
 import FavoriteForm from './FavoriteForm';
 import AppMessage from '../Message/AppMessage';
+import { type FoodModel } from '../../../core/models/food/food-model';
 interface FoodDetailProps {
-  food: {
-    name: string;
-    description: string;
-    calories: number;
-    fat: number;
-    protein: number;
-    carbohydrate: number;
-  };
+  food: FoodModel;
   thumbnail?: string;
   onClose: () => void;
   setAdded:any;

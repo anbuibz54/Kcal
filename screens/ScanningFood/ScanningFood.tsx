@@ -1,18 +1,20 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import {useCameraPermission, useCameraDevice} from 'react-native-vision-camera';
-import {Camera} from 'react-native-vision-camera';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { useCameraPermission, useCameraDevice } from 'react-native-vision-camera';
+import { Camera } from 'react-native-vision-camera';
 import Loading from './Loading';
-import {GoogleGenerativeAI} from '@google/generative-ai';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 import FoodDetail from '../../ui_packages/components/FoodDetail/FoodDetail';
 import S3Upload from '../../core/services/storage/upload';
 import S3Delete from '../../core/services/storage/delete';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { FoodSchema, type FoodModel } from '../../core/models/food/food-model';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { convertImageToBase64 } from '../../core/utils/imge-to-base64';
 import 'react-native-get-random-values';
 import uuid from 'react-native-uuid';
+import { foodMutaions } from '../../core/services/food/mutations';
 export default function ScanningFood() {
   const camera = React.useRef<Camera>(null);
   const device = useCameraDevice('back', {
@@ -22,29 +24,20 @@ export default function ScanningFood() {
       'telephoto-camera',
     ],
   });
-  const {hasPermission, requestPermission} = useCameraPermission();
-  const [food, SetFood] = React.useState<any>(null);
+  const { hasPermission, requestPermission } = useCameraPermission();
+  const [food, setFood] = React.useState<FoodModel | null>(null);
   const [image, setImage] = React.useState<any>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [added, setAdded] = React.useState<boolean>(false);
   async function scanning(path: string) {
+    setLoading(true);
     const file = await fetch(path);
     const data = await file.blob();
-    //@ts-ignore
-    const result = await model.generateContent([prompts, imageParts]);
-    const response = await result.response;
-    const text = response.text();
-    console.log({text});
-    if (!!text && text != 'null') {
-      SetFood(JSON.parse(text));
-      const uploladUrl = await S3Upload({
-        bucket: 'kcal',
-        key: `${uuid.v4()}.jpeg`,
-        data: data,
-        type: data.type,
-      });
-      setImage(uploladUrl);
-      console.log({uploladUrl});
+    const img64 = await convertImageToBase64(data);
+    const scanRes = await foodMutaions.analyzeFood({ image: img64, mimeType: data.type });
+    if (scanRes.data
+    ) {
+      setFood(scanRes.data)
     }
     setLoading(false);
   }
@@ -68,11 +61,11 @@ export default function ScanningFood() {
     if (!added) {
       setLoading(true);
       const key = image.replace('https://bilesoft.org/', '');
-      await S3Delete({bucket: 'kcal', key: key});
+      await S3Delete({ bucket: 'kcal', key: key });
 
       setLoading(false);
     }
-    SetFood(null);
+    setFood(null);
     setImage(null);
   }
   React.useEffect(() => {
@@ -134,7 +127,7 @@ export default function ScanningFood() {
       {!!food && !!image && (
         <FoodDetail
           setAdded={setAdded}
-          food={{...food}}
+          food={{ ...food }}
           thumbnail={image}
           onClose={async () => {
             await handleCloseDetail();

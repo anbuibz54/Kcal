@@ -4,6 +4,7 @@ export const FoodSchema = z.object({
     name:z.string().nullable().optional(),
     description:z.string().nullable().optional(),
     calories:z.number().nullable().optional(),
+    carbohydrate:z.number().nullable().optional(),
     protein:z.number().nullable().optional(),
     fat:z.number().nullable().optional(),
     servingWeight:z.number().nullable().optional(),
