@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import * as React from 'react';
 import {View, Image, ScrollView, TouchableOpacity} from 'react-native';
 import {Text, useTheme} from 'react-native-paper';
@@ -7,20 +6,20 @@ import MiniAppCard from '../../ui_packages/components/MiniAppCard/MiniAppCard';
 import {APPS} from '../../global_variables/apps';
 import ROUTES from '../../navigations/routes';
 import WaterTracker from '../../ui_packages/components/WaterTracker/WaterTracker';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import { s3Utils } from '../../core/utils/s3-utils';
+// import {launchImageLibrary} from 'react-native-image-picker';
+// import { s3Utils } from '../../core/utils/s3-utils';
 export default function Home(props: {navigation: any}) {
   const theme = useTheme();
-  async function exampleForUploadingImage(){
-    const res = await launchImageLibrary({
-      mediaType: 'photo',
-      includeBase64: true,
-    });
-    if(res.assets && res.assets[0].uri){
-      const imageUrl = await s3Utils.handleUploadToS3(res.assets[0].uri);
-      console.log({imageUrl});
-    }
-  }
+  // async function exampleForUploadingImage(){
+  //   const res = await launchImageLibrary({
+  //     mediaType: 'photo',
+  //     includeBase64: true,
+  //   });
+  //   if(res.assets && res.assets[0].uri){
+  //     const imageUrl = await s3Utils.handleUploadToS3(res.assets[0].uri);
+  //     console.log({imageUrl});
+  //   }
+  // }
   return (
     <ScrollView style={{width: '100%', height: '100%', padding: 24}}>
       <View

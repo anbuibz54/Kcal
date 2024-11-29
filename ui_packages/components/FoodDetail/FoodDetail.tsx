@@ -1,5 +1,5 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-native/no-inline-styles */
+
 import * as React from 'react';
 import {
   View,
@@ -47,11 +47,13 @@ export default function FoodDetail(props: FoodDetailProps) {
               onPress={() => {
                 onClose();
               }}>
-              <Icon source={'close'} size={40}></Icon>
+              <Icon source={'close'} size={40} />
             </TouchableOpacity>
             {!!thumbnail && (
               <Image
-                src={thumbnail}
+                source={{
+                  uri:thumbnail,
+                }}
                 style={{
                   height: 250,
                   width: '100%',

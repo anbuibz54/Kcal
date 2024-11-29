@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import 'react-native-url-polyfill/auto'
 
 import { S3Client } from '@aws-sdk/client-s3';

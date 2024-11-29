@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
 import {Image, View, ScrollView, TouchableOpacity} from 'react-native';
@@ -10,8 +10,10 @@ import AppMessage from '../Message/AppMessage';
 import {setMessage} from '../../../core/store/message/messageSlice';
 import {z as zod} from 'zod';
 import {fromError} from 'zod-validation-error';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { type FoodModel } from '../../../core/models/food/food-model';
 interface IFavoriteFormProps {
-  food?: any;
+  food?: FoodModel;
   thumbnail?: string;
   onBack: () => void;
   setAdded:any;
@@ -24,6 +26,15 @@ export default function FavoriteForm(props: IFavoriteFormProps) {
     description: zod.string().min(1),
     thumbnail: zod.string().min(1),
   });
+  async function handleUpload() {
+    const res = await launchImageLibrary({
+      mediaType: 'photo',
+    });
+    if (!res.didCancel && !!res.assets) {
+      const imageUri = res.assets[0].uri as string;
+      setImage(imageUri);
+    }
+  }
   async function addToFavorite() {
     const validate = formSchema.safeParse({
       description: description,
@@ -32,13 +43,13 @@ export default function FavoriteForm(props: IFavoriteFormProps) {
     if (validate.success) {
       const createdFood = await foodMutaions.createFood({
         ...food,
-        serving_weight: 100,
-        serving_unit: 'g',
+        servingWeight: 100,
+        servingUnit: 'g',
       });
       console.log({createdFood});
-      if (!!createdFood) {
+      if (createdFood) {
         const createdFavorite = await foodMutaions.createFavoriteFood({
-          food_id: createdFood.id,
+          food_id: createdFood.data.id,
           description: description,
           thumbnail: thumbnail,
         });
@@ -46,7 +57,7 @@ export default function FavoriteForm(props: IFavoriteFormProps) {
         setAdded(true);
       }
     } else {
-      if (!!validate.error) {
+      if (validate.error) {
         const validationError = fromError(validate.error);
         setMessage({message: validationError.toString(), type: 'error'});
       }
@@ -60,7 +71,7 @@ export default function FavoriteForm(props: IFavoriteFormProps) {
         onPress={() => {
           onBack();
         }}>
-        <Icon source={'arrow-left'} size={40}></Icon>
+        <Icon source={'arrow-left'} size={40} />
       </TouchableOpacity>
       <View style={{width: '100%', marginBottom: 16}}>
         <Text style={{fontSize: 20, fontWeight: '700', marginBottom: 16}}>
@@ -74,13 +85,13 @@ export default function FavoriteForm(props: IFavoriteFormProps) {
               borderRadius: 40,
               marginBottom: 16,
             }}
-            src={
-              thumbnail
-                ? thumbnail
-                : image
-                ? image
-                : 'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-            }
+            source={{
+              uri:thumbnail
+              ? thumbnail
+              : image
+              ? image
+              : 'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            }}
           />
         )}
         {!thumbnail && (
