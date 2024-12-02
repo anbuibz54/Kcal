@@ -1,11 +1,9 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
 import {View, FlatList, TouchableOpacity} from 'react-native';
 import AppHeader from '../../../ui_packages/components/AppHeader/AppHeader';
 import ProductCard from '../../../ui_packages/components/ProductCard/ProductCard';
 import Loading from '../../ScanningFood/Loading';
-import {productQueries} from '../../../core/services/product/queries';
+import {productServices} from '../../../core/services';
 import ROUTES from '../../../navigations/routes';
 import type { RootStackParamList } from '../../../navigations/RootStack';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -15,8 +13,8 @@ export default function ProductList(props: Props) {
   const [products, setProducts] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
   async function getProducts() {
-    const response = await productQueries.getProducts();
-    if (!!response) {
+    const response = await productServices.getProducts();
+    if (response) {
       setProducts(response);
       setLoading(false);
     }

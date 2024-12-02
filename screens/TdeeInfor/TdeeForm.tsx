@@ -1,11 +1,12 @@
-/* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import * as React from 'react';
 import { View, Text } from 'react-native';
 import AppHeader from '../../ui_packages/components/AppHeader/AppHeader';
 import AppTextInput from '../../ui_packages/components/TextInput/TextInput';
 import AppButton from '../../ui_packages/components/Button/AppButton';
-import { userUpdateRequestSchema,type userUpdateRequestModel } from '../../core/models/user/user-models';
-import { authInforSchema } from '../../core/models/auth/auth-model';
+import { userUpdateRequestSchema,type userUpdateRequestModel, authInforSchema } from '../../core/models';
 import { useGetUserByIdQuery,useUpdateUserInforMutation } from '../../core/redux-store/hooks/profile/api';
 import { useGetAllQuery } from '../../core/redux-store/hooks/activity-rate/api';
 import { useAppSelector,useAppDispatch } from '../../core/redux-store/hooks/base';
@@ -22,12 +23,12 @@ export default function TdeeForm(props: {
     const [userInfor, setUserInfor] = React.useState<userUpdateRequestModel>({ id:0,height: 0, weight: 0, age: 0, gender: 1, activityRateId: 1,tdee:0 });
     const genderOptions = [
         { label: 'Male', value: '1' },
-        { label: 'Female', value: '2' }
+        { label: 'Female', value: '2' },
     ];
     const [activityRatesOptions, setActivityRateOptions] = React.useState<any[]>([]);
     async function getActivityRates() {
         if(activities){
-            setActivityRateOptions(activities.map((c: any) => { return { label: c.description, value: String(c.id) } }));
+            setActivityRateOptions(activities.map((c: any) => { return { label: c.description, value: String(c.id) }; }));
         }
     }
     async function tdeeCalculate() {
@@ -41,24 +42,24 @@ export default function TdeeForm(props: {
     }
     React.useEffect(() => {
         getActivityRates();
-    }, [getActivitiesSuccessed])
+    }, [getActivitiesSuccessed]);
     React.useEffect(()=>{
         if(profile){
             const formattedProfile = userUpdateRequestSchema.safeParse(profile);
-            console.log({profile,formattedProfile})
+            console.log({profile,formattedProfile});
             if(formattedProfile.data){
                 setUserInfor({...formattedProfile.data});
             }
         }
-    },[getProfileSuccessed])
+    },[getProfileSuccessed]);
     React.useEffect(()=>{
         if(result.isSuccess){
             const token = authInforSchema.safeParse(result.data);
-            if(token.success &&token.data){
+            if(token.success && token.data){
                 dispatch(updateToken(token.data));
             }
         }
-    },[result])
+    },[result]);
     return (
         <View>
             <AppHeader
@@ -66,7 +67,7 @@ export default function TdeeForm(props: {
                     props.navigation.goBack();
                 }}
                 key={''}
-                title="Create new account"></AppHeader>
+                title="Create new account" />
             <View style={{ width: '100%', height: '100%', padding: 16 }}>
                 <View style={{ marginBottom: 16 }}>
                     <Text style={{ marginBottom: 8 }}>Height in cm</Text>
@@ -75,7 +76,7 @@ export default function TdeeForm(props: {
                         placeholder={'Height'}
                         value={String(userInfor.height)}
                         onChangeText={value => {
-                            setUserInfor({ ...userInfor, height: Number(value) })
+                            setUserInfor({ ...userInfor, height: Number(value) });
                         }}
                     />
                 </View>
@@ -86,7 +87,7 @@ export default function TdeeForm(props: {
                         placeholder={'Weight'}
                         value={String(userInfor.weight)}
                         onChangeText={value => {
-                            setUserInfor({ ...userInfor, weight: Number(value) })
+                            setUserInfor({ ...userInfor, weight: Number(value) });
                         }}
                     />
                 </View>
@@ -97,19 +98,19 @@ export default function TdeeForm(props: {
                         placeholder={'Age'}
                         value={String(userInfor.age)}
                         onChangeText={value => {
-                            setUserInfor({ ...userInfor, age: Number(value) })
+                            setUserInfor({ ...userInfor, age: Number(value) });
                         }}
                     />
                 </View>
                 <View style={{ marginBottom: 16 }}>
                     <Text style={{ marginBottom: 8 }}>Activity Rate</Text>
-                    <Dropdown options={genderOptions} value={String(userInfor.gender)} onSelect={(value) => { setUserInfor({ ...userInfor, gender: Number(value as string) }) }} />
+                    <Dropdown options={genderOptions} value={String(userInfor.gender)} onSelect={(value) => { setUserInfor({ ...userInfor, gender: Number(value as string) }); }} />
                 </View>
                 {
                     activityRatesOptions.length > 0 && (
                         <View style={{ marginBottom: 16 }}>
                             <Text style={{ marginBottom: 8 }}>Gender</Text>
-                            <Dropdown options={activityRatesOptions} value={String(userInfor.activityRateId)} onSelect={(value) => { setUserInfor({ ...userInfor, activityRateId: Number(value as string) }) }} />
+                            <Dropdown options={activityRatesOptions} value={String(userInfor.activityRateId)} onSelect={(value) => { setUserInfor({ ...userInfor, activityRateId: Number(value as string) }); }} />
                         </View>
                     )
                 }

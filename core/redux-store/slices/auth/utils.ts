@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { USER_KEY } from '../../../models/auth/auth-model';
-import { authInforSchema,authResponseModel } from '../../../models/auth/auth-model';
+import { authInforSchema,authResponseModel, USER_KEY } from '../../../models';
 export const getToken = async () => {
   const res = await AsyncStorage.getItem(USER_KEY);
   try{

@@ -3,4 +3,4 @@ export type ApiResultModel<T>={
     statusCode:number,
     isSuccess:boolean,
     data:T
-}
+};

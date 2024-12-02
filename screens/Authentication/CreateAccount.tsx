@@ -1,11 +1,13 @@
-/* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
 import { View, Text } from 'react-native';
 import AppHeader from '../../ui_packages/components/AppHeader/AppHeader';
 import AppTextInput from '../../ui_packages/components/TextInput/TextInput';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 import { TextInput } from 'react-native-paper';
-import { authRequestBodySchema } from '../../core/models/auth/auth-model';
+import { authRequestBodySchema } from '../../core/models';
 import ROUTES from '../../navigations/routes';
 import { useRegisterMutation } from '../../core/redux-store/hooks/auth/api';
 import { selectUser } from '../../core/redux-store/slices/auth/authSlice';
@@ -22,17 +24,17 @@ export default function CreateNewAccount(props: {
   }>({ password: '', email: '' });
   async function handleSingup() {
     try {
-      const input = authRequestBodySchema.parse({...credentials})
+      const input = authRequestBodySchema.parse({...credentials});
       console.log({input});
       register(input);
      }
     catch { }
   }
   React.useEffect(() => {
-    if(authState.status =='signIn'){
+    if(authState.status === 'signIn'){
       props.navigation.navigate(ROUTES.DASHBOARD_TABS_SCREEN);
     }
-  }, [authState])
+  }, [authState]);
   return (
     <View>
       <AppHeader
@@ -40,7 +42,7 @@ export default function CreateNewAccount(props: {
           props.navigation.goBack();
         }}
         key={''}
-        title="Create new account"></AppHeader>
+        title="Create new account" />
       <View style={{ width: '100%', height: '100%', padding: 16 }}>
         <View style={{ marginBottom: 16 }}>
           <Text style={{ marginBottom: 8 }}>Email</Text>

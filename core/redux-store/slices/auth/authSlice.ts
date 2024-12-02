@@ -1,9 +1,8 @@
-import type { authResponseModel } from '../../../models/auth/auth-model';
+import type { authResponseModel, authStatusModel } from '../../../models';
 import { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../store';
 import { createAppSlice } from '../../createAppSlice';
 import { removeToken, setToken, getToken } from './utils';
-import type { authStatusModel } from '../../../models/auth/auth-model';
 
 const initialState: { status: authStatusModel, value: authResponseModel } = {
     status: 'idle',

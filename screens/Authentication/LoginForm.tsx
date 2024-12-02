@@ -1,4 +1,6 @@
-/* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
 import { View, Text } from 'react-native';
 import AppHeader from '../../ui_packages/components/AppHeader/AppHeader';
@@ -7,7 +9,7 @@ import AppButton from '../../ui_packages/components/Button/AppButton';
 // import Loading from '../Loading/Loading';
 import { TextInput } from 'react-native-paper';
 import ROUTES from '../../navigations/routes';
-import { authRequestBodySchema } from '../../core/models/auth/auth-model';
+import { authRequestBodySchema } from '../../core/models';
 import { useSigninMutation } from '../../core/redux-store/hooks/auth/api';
 import { selectUser } from '../../core/redux-store/slices/auth/authSlice';
 import { useAppSelector } from '../../core/redux-store/hooks/base';
@@ -34,7 +36,7 @@ export default function LoginForm(props: {
     if (authState.status == 'signIn') {
       props.navigation.navigate(ROUTES.DASHBOARD_TABS_SCREEN);
     }
-  }, [authState])
+  }, [authState]);
   return (
     <View>
       <AppHeader
@@ -42,7 +44,7 @@ export default function LoginForm(props: {
           props.navigation.goBack();
         }}
         key={''}
-        title="Login"></AppHeader>
+        title="Login" />
       <View style={{ width: '100%', height: '100%', padding: 16 }}>
         <View style={{ marginBottom: 16 }}>
           <Text style={{ marginBottom: 8 }}>Email</Text>

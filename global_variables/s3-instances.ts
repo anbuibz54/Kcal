@@ -1,7 +1,6 @@
 import 'react-native-url-polyfill/auto'
 
 import { S3Client } from '@aws-sdk/client-s3';
-// export const r2PublicDomain = "https://ca2ef2fb3b6315782a92dea2d4b4e727.r2.cloudflarestorage.com";
 export const cloudflareR2 = new S3Client({
     credentials: {
         accessKeyId: "aad6fefa852b2496254047351868ffa5",

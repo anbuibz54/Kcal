@@ -1,4 +1,4 @@
-import {z} from "zod";
+import {z} from 'zod';
 export const FoodSchema = z.object({
     id:z.number().nullable().optional(),
     name:z.string().nullable().optional(),
@@ -9,7 +9,7 @@ export const FoodSchema = z.object({
     fat:z.number().nullable().optional(),
     servingWeight:z.number().nullable().optional(),
     servingUnit:z.string().nullable().optional(),
-})
+});
 export type AnalyzeFoodRequest ={
     image: string,
     mimeType: string

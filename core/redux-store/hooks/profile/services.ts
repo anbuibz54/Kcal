@@ -1,6 +1,5 @@
-import { getApiInstance } from "../../../../global_variables/axios_instance";
-import { userGetResponseModel,userUpdateRequestModel } from "../../../models/user/user-models";
-import { ApiResultModel } from "../../../models/api-result-model";
+import { getApiInstance } from '../../../../global_variables/axios_instance';
+import { userGetResponseModel,userUpdateRequestModel, ApiResultModel } from '../../../models';
 const oapi = getApiInstance();
 
 async function getUserProfile(userId: number){
@@ -14,4 +13,4 @@ async function updateUserInfor(input:userUpdateRequestModel){
     return response.data;
 }
 
-export const profileServices = { getUserProfile, updateUserInfor}
+export const profileServices = { getUserProfile, updateUserInfor};

@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
@@ -7,7 +7,7 @@ import {Text, Divider} from 'react-native-paper';
 import AppHeader from '../../ui_packages/components/AppHeader/AppHeader';
 import AppSearchBar from '../../ui_packages/components/SearchBar/SearchBar';
 import SearchResult from '../../ui_packages/components/SearchResult/SearchResult';
-import {foodQueries} from '../../core/services/food/queries';
+import {foodServices} from '../../core/services';
 import ROUTES from '../../navigations/routes';
 import {ITEM_PER_PAGE} from '../../global_variables/paging';
 export default function SearchingFood(props: {
@@ -17,24 +17,24 @@ export default function SearchingFood(props: {
   const [searchText, setSearchText] = React.useState<string>('');
   const [offset, setOffset] = React.useState<number>(0);
   async function initialFood() {
-    const data = await foodQueries.searchFoods({
+    const data = await foodServices.searchFoods({
       textSearch: searchText,
       from: 0,
       to: ITEM_PER_PAGE,
     });
-    if (!!data) {
+    if (data) {
       setFoods(data);
     }
   }
   async function loadMore() {
-    const data = await foodQueries.searchFoods({
+    const data = await foodServices.searchFoods({
       textSearch: searchText,
       from: offset,
-      to: offset + ITEM_PER_PAGE+1,
+      to: offset + ITEM_PER_PAGE + 1,
     });
-    if (!!data) {
+    if (data) {
       setFoods([...foods, ...data]);
-      setOffset(offset + ITEM_PER_PAGE+1);
+      setOffset(offset + ITEM_PER_PAGE + 1);
     }
   }
   async function handleSearch(text: string) {
@@ -61,7 +61,7 @@ export default function SearchingFood(props: {
             setSearchText(value);
           }}
           onIconPress={async()=>{
-            console.log("press")
+            console.log('press');
             handleSearch(searchText);
           }}
         />
@@ -73,12 +73,12 @@ export default function SearchingFood(props: {
           data={foods}
           keyExtractor={(item,index)=>{
             const now = new Date();
-            return `${now.getTime()} ${index}`
+            return `${now.getTime()} ${index}`;
           }}
           renderItem={item => {
             // console.log({item: item.item});
             const food = item.item;
-            
+
             return (
               <TouchableOpacity
                 style={{marginBottom: 16}}

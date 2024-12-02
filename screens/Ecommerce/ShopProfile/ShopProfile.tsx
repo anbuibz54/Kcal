@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -12,7 +11,7 @@ import AppAvatar from '../../../ui_packages/components/Avatar/Avatar';
 import AppMessage from '../../../ui_packages/components/Message/AppMessage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {USER_KEY} from '../../../core/store/auth/utils';
-import {productQueries} from '../../../core/services/product/queries';
+import {productServices} from '../../../core/services';
 import type { RootStackParamList } from '../../../navigations/RootStack';
 import { StackScreenProps } from '@react-navigation/stack';
 import ROUTES from '../../../navigations/routes';
@@ -23,13 +22,13 @@ export default function ShopProfile(props: Props ) {
   const [shop, setShop] = React.useState<any>(null);
   const [products, setProducts] = React.useState<any[]>([]);
   async function checkOwningShop() {
-    if (!!props.route.params?.shop) {
+    if (props.route.params?.shop) {
       setShop(props.route.params.shop);
     } else {
       const json = await AsyncStorage.getItem(USER_KEY);
-      if (!!json) {
+      if (json) {
         const user = JSON.parse(json);
-        if (!!user?.shops) {
+        if (user?.shops) {
           setShop(user.shops);
         } else {
           props.navigation.navigate(ROUTES.SHOP_MANAGE);
@@ -40,7 +39,7 @@ export default function ShopProfile(props: Props ) {
     }
   }
   async function getProducts(shopId: number) {
-    const response = await productQueries.getProductsByShopId(shopId);
+    const response = await productServices.getProductsByShopId(shopId);
     if (response) {
       // console.log({response});
       setProducts(response);
@@ -50,7 +49,7 @@ export default function ShopProfile(props: Props ) {
     checkOwningShop();
   }, [props.navigation]);
   React.useEffect(() => {
-    if (!!shop?.id) {
+    if (shop?.id) {
       getProducts(shop.id);
     }
   }, [shop]);

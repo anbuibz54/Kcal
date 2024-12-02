@@ -5,21 +5,20 @@ import {Image, View, ScrollView, TouchableOpacity} from 'react-native';
 import {Text, Icon} from 'react-native-paper';
 import AppButton from '../Button/AppButton';
 import AppTextInput from '../TextInput/TextInput';
-import {foodMutaions} from '../../../core/services/food/mutations';
+import {foodServices} from '../../../core/services';
 import AppMessage from '../Message/AppMessage';
 import {setMessage} from '../../../core/store/message/messageSlice';
 import {z as zod} from 'zod';
 import {fromError} from 'zod-validation-error';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { type FoodModel } from '../../../core/models/food/food-model';
+import { type FoodModel } from '../../../core/models';
 interface IFavoriteFormProps {
   food?: FoodModel;
   thumbnail?: string;
   onBack: () => void;
-  setAdded:any;
 }
 export default function FavoriteForm(props: IFavoriteFormProps) {
-  const {food, thumbnail, onBack,setAdded} = props;
+  const {food, thumbnail, onBack} = props;
   const [description, setDescription] = React.useState<string>('');
   const [image, setImage] = React.useState<any>(null);
   const formSchema = zod.object({
@@ -41,20 +40,19 @@ export default function FavoriteForm(props: IFavoriteFormProps) {
       thumbnail: thumbnail, // note: invalid email
     });
     if (validate.success) {
-      const createdFood = await foodMutaions.createFood({
+      const createdFood = await foodServices.createFood({
         ...food,
         servingWeight: 100,
         servingUnit: 'g',
       });
       console.log({createdFood});
       if (createdFood) {
-        const createdFavorite = await foodMutaions.createFavoriteFood({
+        const createdFavorite = await foodServices.createFavoriteFood({
           food_id: createdFood.data.id,
           description: description,
           thumbnail: thumbnail,
         });
         setMessage({message:'Add to favorites successfully',type:'success'});
-        setAdded(true);
       }
     } else {
       if (validate.error) {

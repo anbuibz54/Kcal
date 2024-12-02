@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
@@ -17,7 +17,7 @@ import S3Delete from '../../../core/services/storage/delete';
 import {setMessage} from '../../../core/store/message/messageSlice';
 import AppMessage from '../../../ui_packages/components/Message/AppMessage';
 import Loading from '../../ScanningFood/Loading';
-import {shopMutations} from '../../../core/services/shop/mutations';
+import {shopServices} from '../../../core/services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {USER_KEY} from '../../../core/store/auth/utils';
 import ROUTES from '../../../navigations/routes';
@@ -43,9 +43,9 @@ export default function ShopManage(props: {
   const [loading, setLoading] = React.useState<boolean>(false);
   async function initial() {
     const json = await AsyncStorage.getItem(USER_KEY);
-    if (!!json) {
+    if (json) {
       const user = JSON.parse(json);
-      if (!!user?.shops) {
+      if (user?.shops) {
         setShop(user.shops);
         setPreviousAvatar(user.shops.avatar);
       }
@@ -80,21 +80,21 @@ export default function ShopManage(props: {
   async function handleCreateShop() {
     const uploadedAvatar = await handleS3Upload(shop.avatar);
     const input = {...shop, avatar: uploadedAvatar};
-    const response = await shopMutations.createShop(input);
-    if (!!response) {
+    const response = await shopServices.createShop(input);
+    if (response) {
       setMessage({message: 'Create shop successfully', type: 'success'});
     } else {
       setMessage({message: 'Create shop failed', type: 'error'});
     }
   }
   async function handleUpdateShop() {
-    if (previousAvatar != shop.avatar) {
+    if (previousAvatar !== shop.avatar) {
       await handleS3Delete(previousAvatar);
     }
     const uploadedAvatar = await handleS3Upload(shop.avatar);
     const input = {...shop, avatar: uploadedAvatar};
-    const response = await shopMutations.updateShop(input);
-    if (!!response) {
+    const response = await shopServices.updateShop(input);
+    if (response) {
       setMessage({message: 'Update shop successfully', type: 'success'});
     } else {
       setMessage({message: 'Update shop failed', type: 'error'});
@@ -109,14 +109,14 @@ export default function ShopManage(props: {
     });
     const validate = shopSchema.safeParse(shop);
     if (validate.success) {
-      if (!!shop?.id) {
+      if (shop?.id) {
         await handleUpdateShop();
       } else {
         await handleCreateShop();
       }
       props.navigation.push(ROUTES.SHOP_PROFILE);
     } else {
-      if (!!validate.error) {
+      if (validate.error) {
         const validationError = fromError(validate.error);
         setMessage({message: validationError.toString(), type: 'error'});
       }
@@ -199,7 +199,7 @@ export default function ShopManage(props: {
             onPress={async () => {
               await handleManageShop();
             }}>
-            {!!shop.id ? 'Update' : 'Create'} Shop
+            {shop.id ? 'Update' : 'Create'} Shop
           </AppButton>
         </View>
       </ScrollView>

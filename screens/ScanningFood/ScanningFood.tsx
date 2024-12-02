@@ -6,13 +6,11 @@ import { Camera } from 'react-native-vision-camera';
 import Loading from './Loading';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 import FoodDetail from '../../ui_packages/components/FoodDetail/FoodDetail';
-import S3Delete from '../../core/services/storage/delete';
-import { type FoodModel } from '../../core/models/food/food-model';
+import { type FoodModel } from '../../core/models';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { convertImageToBase64 } from '../../core/utils/imge-to-base64';
 import 'react-native-get-random-values';
-import { foodMutaions } from '../../core/services/food/mutations';
-import { R2_PUBLIC_DOMAIN } from '../../global_variables/s3-instances';
+import { foodServices } from '../../core/services';
 export default function ScanningFood() {
   const camera = React.useRef<Camera>(null);
   const device = useCameraDevice('back', {
@@ -26,13 +24,12 @@ export default function ScanningFood() {
   const [food, setFood] = React.useState<FoodModel | null>(null);
   const [image, setImage] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [added, setAdded] = React.useState<boolean>(false);
   async function scanning(path: string) {
     setLoading(true);
     const file = await fetch(path);
     const data = await file.blob();
     const img64 = await convertImageToBase64(data);
-    const scanRes = await foodMutaions.analyzeFood({ image: img64, mimeType: data.type });
+    const scanRes = await foodServices.analyzeFood({ image: img64, mimeType: data.type });
     if (scanRes.data
     ) {
       setFood(scanRes.data);
@@ -59,15 +56,6 @@ export default function ScanningFood() {
     }
   }
   async function handleCloseDetail() {
-    if (added) {
-      setLoading(true);
-      if(image){
-        const key = image.replace(R2_PUBLIC_DOMAIN, '');
-        await S3Delete({ bucket: 'kcal', key: key });
-      }
-
-      setLoading(false);
-    }
     setFood(null);
     setImage(null);
   }
@@ -131,7 +119,6 @@ export default function ScanningFood() {
       </View>
       {!!food && !!image && (
         <FoodDetail
-          setAdded={setAdded}
           food={{ ...food }}
           thumbnail={image}
           onClose={async () => {

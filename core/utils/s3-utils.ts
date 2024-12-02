@@ -1,7 +1,7 @@
 import uuid from 'react-native-uuid';
 import S3Upload from '../services/storage/upload';
 import S3Delete from '../services/storage/delete';
-import type { UploadToS3Model } from '../models/s3-storage/s3-storage-models';
+import type { UploadToS3Model } from '../models';
 import { R2_PUBLIC_DOMAIN } from '../../global_variables/s3-instances';
 
 async function handleUploadToS3(path: string){

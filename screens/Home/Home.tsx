@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import {View, Image, ScrollView, TouchableOpacity} from 'react-native';
 import {Text, useTheme} from 'react-native-paper';

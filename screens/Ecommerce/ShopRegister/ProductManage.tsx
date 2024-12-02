@@ -1,4 +1,5 @@
-/* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable no-array-constructor */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
 import {View, TouchableOpacity, Image, ScrollView} from 'react-native';
@@ -17,7 +18,7 @@ import {setMessage} from '../../../core/store/message/messageSlice';
 import AppMessage from '../../../ui_packages/components/Message/AppMessage';
 import Loading from '../../ScanningFood/Loading';
 import ROUTES from '../../../navigations/routes';
-import {productMutations} from '../../../core/services/product/mutations';
+import {productServices} from '../../../core/services';
 import type { RootStackParamList } from '../../../navigations/RootStack';
 import { StackScreenProps } from '@react-navigation/stack';
 
@@ -73,8 +74,8 @@ export default function ProductManage(props: Props) {
   function handleRemoveImage(image: string) {
     const images = [...product.images];
     const toUps = [...toUpImages];
-    const index = images.findIndex(i => i == image);
-    const upIndex = toUps.findIndex(i => i == image);
+    const index = images.findIndex(i => i === image);
+    const upIndex = toUps.findIndex(i => i === image);
     const removes = images.splice(index, 1);
     if (removes[0].includes('https://bilesoft.org/')) {
       const toDeletes = [...toDeleteImages];
@@ -89,14 +90,14 @@ export default function ProductManage(props: Props) {
     const uploadImages = new Array<string>();
     for (var i = 0; i < toUpImages.length; i++) {
       const url = await handleS3Upload(toUpImages[i]);
-      if (!!url) {
+      if (url) {
         uploadImages.push(url);
       }
     }
     console.log({toUpImages, uploadImages});
     const input = {...product, images: uploadImages};
-    const response = await productMutations.createProduct(input);
-    if (!!response) {
+    const response = await productServices.createProduct(input);
+    if (response) {
       setMessage({message: 'Create product successfully', type: 'success'});
     } else {
       setMessage({message: 'Create product failed', type: 'error'});
@@ -106,19 +107,19 @@ export default function ProductManage(props: Props) {
     const uploadImages = new Array<string>();
     for (var i = 0; i < toUpImages.length; i++) {
       const url = await handleS3Upload(toUpImages[i]);
-      if (!!url) {
+      if (url) {
         uploadImages.push(url);
       }
     }
     for (var i = 0; i < toDeleteImages.length; i++) {
       await handleS3Delete(toDeleteImages[i]);
     }
-    const oldImages = product.images.filter(i =>
-      i.includes('https://bilesoft.org/'),
+    const oldImages = product.images.filter(img =>
+      img.includes('https://bilesoft.org/'),
     );
     const input = {...product, images: [...oldImages, ...uploadImages]};
-    const response = await productMutations.updateProduct(input);
-    if (!!response) {
+    const response = await productServices.updateProduct(input);
+    if (response) {
       setMessage({message: 'Update product successfully', type: 'success'});
     } else {
       setMessage({message: 'Update product failed', type: 'error'});
@@ -134,7 +135,7 @@ export default function ProductManage(props: Props) {
     });
     const validate = productSchema.safeParse(product);
     if (validate.success) {
-      if (!!product?.id) {
+      if (product?.id) {
         await handleUpdateProduct();
       } else {
         await handleCreateProduct();
@@ -148,7 +149,7 @@ export default function ProductManage(props: Props) {
       });
       props.navigation.push(ROUTES.SHOP_PROFILE);
     } else {
-      if (!!validate.error) {
+      if (validate.error) {
         const validationError = fromError(validate.error);
         setMessage({message: validationError.toString(), type: 'error'});
       }
@@ -219,7 +220,7 @@ export default function ProductManage(props: Props) {
                   </View>
                 );
               })}
-            {product.images.length == 0 && <Text>No images</Text>}
+            {product.images.length === 0 && <Text>No images</Text>}
           </View>
           <View style={{width: '40%'}}>
             <AppButton
@@ -254,7 +255,7 @@ export default function ProductManage(props: Props) {
             onPress={async () => {
               await handleManageProduct();
             }}>
-            {!!product.id ? 'Update' : 'Create'} Shop
+            {product.id ? 'Update' : 'Create'} Shop
           </AppButton>
         </View>
       </ScrollView>

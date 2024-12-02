@@ -12,12 +12,11 @@ import {Text, Icon} from 'react-native-paper';
 import AppButton from '../Button/AppButton';
 import FavoriteForm from './FavoriteForm';
 import AppMessage from '../Message/AppMessage';
-import { type FoodModel } from '../../../core/models/food/food-model';
+import { type FoodModel } from '../../../core/models';
 interface FoodDetailProps {
   food: FoodModel;
   thumbnail?: string;
   onClose: () => void;
-  setAdded:any;
 }
 export default function FoodDetail(props: FoodDetailProps) {
   // ref
@@ -167,7 +166,6 @@ export default function FoodDetail(props: FoodDetailProps) {
             onBack={() => {
               setShowForm(false);
             }}
-            setAdded={props.setAdded}
             food={food}
             thumbnail={thumbnail}
           />
