@@ -1,5 +1,5 @@
-import { getApiInstance } from '../../../global_variables/axios_instance';
-import type { ActivityRateModel, ApiResultModel } from '../../models';
+import { getApiInstance } from '@global-vars/index';
+import type { ActivityRateModel, ApiResultModel } from '@/models';
 const oapi = getApiInstance();
 export async function addActivityRate(){
     const input = {

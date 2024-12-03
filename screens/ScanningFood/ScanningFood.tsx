@@ -6,11 +6,11 @@ import { Camera } from 'react-native-vision-camera';
 import Loading from './Loading';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 import FoodDetail from '../../ui_packages/components/FoodDetail/FoodDetail';
-import { type FoodModel } from '../../core/models';
+import { type FoodModel } from '@/models';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { convertImageToBase64 } from '../../core/utils/imge-to-base64';
 import 'react-native-get-random-values';
-import { foodServices } from '../../core/services';
+import { foodServices } from '@/services';
 export default function ScanningFood() {
   const camera = React.useRef<Camera>(null);
   const device = useCameraDevice('back', {

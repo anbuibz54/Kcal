@@ -1,13 +1,10 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
 import {View, Text} from 'react-native';
 import {CommonActions} from '@react-navigation/native';
 import ROUTES from '../../navigations/routes';
-import {hydrateAuth, useAuth} from '../../core/store/auth/authSlice';
-import { useAppSelector, useAppDispatch } from '../../core/redux-store/hooks/base';
-import { selectUser,hydrate } from '../../core/redux-store/slices/auth/authSlice';
+import { useAppSelector, useAppDispatch,selectUser,hydrate } from '@/redux-store';
 export default function Splash(props: {
   navigation: {dispatch: (arg0: CommonActions.Action) => void};
 }) {

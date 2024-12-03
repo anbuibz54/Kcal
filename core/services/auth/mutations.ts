@@ -1,5 +1,5 @@
-import { getApiInstance } from '../../../global_variables/axios_instance';
-import { authRequestBodyModel,authResponseModel, ApiResultModel } from '../../models';
+import { getApiInstance } from '@global-vars/index';
+import { authRequestBodyModel,authResponseModel, ApiResultModel } from '@/models';
 const oapi = getApiInstance();
 
 export async function register(input: authRequestBodyModel){

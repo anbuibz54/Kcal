@@ -1,9 +1,9 @@
-import { getToken } from "../core/redux-store/slices/auth/utils";
-import axios from "axios";
-import type { AxiosResponse, InternalAxiosRequestConfig, AxiosError, AxiosInstance } from "axios";
-import { BASE_URL } from "./api";
-import { createNavigationContainerRef,CommonActions } from "@react-navigation/native";
-import ROUTES from "../navigations/routes"; 
+import { getToken } from '@/redux-store/slices/auth/';
+import axios from 'axios';
+import type { AxiosResponse, InternalAxiosRequestConfig, AxiosError, AxiosInstance } from 'axios';
+import { BASE_URL } from './api';
+import { createNavigationContainerRef,CommonActions } from '@react-navigation/native';
+import ROUTES from '../navigations/routes';
 export const navigationRef = createNavigationContainerRef();
 
 export function navigate(params:any) {
@@ -32,13 +32,13 @@ async function baseRequestInterceptor(config: InternalAxiosRequestConfig): Promi
     const user = await getToken();
     const token = user?.accessToken;
     const bearer = `Bearer ${token}`;
-    config.headers["Content-Type"] = "application/json";
-    config.headers.Accept = "*/*";
+    config.headers['Content-Type'] = 'application/json';
+    config.headers.Accept = '*/*';
     config.headers.Authorization = bearer;
     return config;
 }
 function baseErrorInterceptor(error: AxiosError): Promise<never> {
-    if(error?.response && error.response.status==401)
+    if(error?.response && error.response.status == 401)
     {
         navigate(CommonActions.reset({
             index: 1,

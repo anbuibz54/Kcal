@@ -1,6 +1,5 @@
-import { getApiInstance } from '../../../global_variables/axios_instance';
-import type { FoodModel, UpsertFoodRequest, AnalyzeFoodRequest, ApiResultModel } from '../../models';
-import { supabase } from '../../../global_variables/supabase';
+import { getApiInstance, supabase } from '@global-vars/index';
+import type { FoodModel, UpsertFoodRequest, AnalyzeFoodRequest, ApiResultModel } from '@/models';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { USER_KEY } from '../../store/auth/utils';
 

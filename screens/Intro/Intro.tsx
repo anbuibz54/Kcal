@@ -1,10 +1,10 @@
-/* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import {View, Text, Dimensions, Image} from 'react-native';
 import {Button} from 'react-native-paper';
 import {useTheme} from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
-import {INTRO_ITEMS} from '../../global_variables/intro';
+import {INTRO_ITEMS} from '@global-vars/index';
 import ROUTES from '../../navigations/routes';
 const data = INTRO_ITEMS;
 const width = Dimensions.get('window').width;
@@ -48,7 +48,7 @@ export default function Intro(props: { navigation: { navigate: (arg0: string) =>
               }}>
               <Image
                 source={item.headerImg}
-                style={{width: '65%', height: '65%'}}></Image>
+                style={{width: '65%', height: '65%'}} />
               <Text
                 style={{
                   color: '#005e5e',
@@ -93,7 +93,7 @@ export default function Intro(props: { navigation: { navigate: (arg0: string) =>
           onTouchEnd={()=>{
           }}
           onPress={() => {
-            props.navigation.navigate(ROUTES.LOGIN_FORM_SCREEN)
+            props.navigation.navigate(ROUTES.LOGIN_FORM_SCREEN);
           }}>
           <Text>Skip</Text>
         </Button>

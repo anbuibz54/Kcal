@@ -7,11 +7,11 @@ import AppHeader from '../../ui_packages/components/AppHeader/AppHeader';
 import AppTextInput from '../../ui_packages/components/TextInput/TextInput';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 import { TextInput } from 'react-native-paper';
-import { authRequestBodySchema } from '../../core/models';
+import { authRequestBodySchema } from '@/models';
 import ROUTES from '../../navigations/routes';
-import { useRegisterMutation } from '../../core/redux-store/hooks/auth/api';
-import { selectUser } from '../../core/redux-store/slices/auth/authSlice';
-import { useAppSelector } from '../../core/redux-store/hooks/base';
+import { useRegisterMutation } from '@/redux-store/hooks/auth/';
+import { selectUser } from '@/redux-store/slices/auth';
+import { useAppSelector } from '@/redux-store/hooks/base';
 export default function CreateNewAccount(props: {
   navigation: { goBack: () => void; navigate: (arg0: string) => void };
 }) {

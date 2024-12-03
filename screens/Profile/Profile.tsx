@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
@@ -9,8 +8,8 @@ import {CommonActions} from '@react-navigation/native';
 import ROUTES from '../../navigations/routes';
 import AppAvatar from '../../ui_packages/components/Avatar/Avatar';
 import RecipeCard from '../../ui_packages/components/RecipeCard/RecipeCard';
-import { useAppDispatch } from '../../core/redux-store/hooks/base';
-import { logOut } from '../../core/redux-store/slices/auth/authSlice';
+import { useAppDispatch } from '@/redux-store/';
+import { logOut } from '@/redux-store/slices/auth/';
 export default function Profile(props: {
   navigation: {dispatch: (arg0: CommonActions.Action) => void};
 }) {

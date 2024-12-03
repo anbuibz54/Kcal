@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-import assets from "../assets/Assets";
+import assets from '../assets/Assets';
 
 export const INTRO_ITEMS = [
     {
@@ -19,5 +18,5 @@ export const INTRO_ITEMS = [
         subtitle:
             'With amazing inbuilt tools you can track your progress.',
         headerImg: assets.intro3,
-    }
+    },
 ];

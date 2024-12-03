@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { StoreApi, UseBoundStore } from 'zustand'
 
 type WithSelectors<S> = S extends { getState: () => infer T }

@@ -12,7 +12,7 @@ import {Text, Icon} from 'react-native-paper';
 import AppButton from '../Button/AppButton';
 import FavoriteForm from './FavoriteForm';
 import AppMessage from '../Message/AppMessage';
-import { type FoodModel } from '../../../core/models';
+import { type FoodModel } from '@/models';
 interface FoodDetailProps {
   food: FoodModel;
   thumbnail?: string;

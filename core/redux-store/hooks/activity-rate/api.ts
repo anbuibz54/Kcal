@@ -1,8 +1,7 @@
-import { activityRateServices } from '../../../services';
+import { activityRateServices } from '@/services';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import type{ ActivityRateModel } from '../../../models';
-
+import type{ ActivityRateModel } from '@/models';
 export const activityRateApi = createApi({
     baseQuery: fetchBaseQuery(),
     reducerPath:'activityRateApi',

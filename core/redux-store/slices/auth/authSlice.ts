@@ -1,4 +1,4 @@
-import type { authResponseModel, authStatusModel } from '../../../models';
+import type { authResponseModel, authStatusModel } from '@/models';
 import { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../store';
 import { createAppSlice } from '../../createAppSlice';

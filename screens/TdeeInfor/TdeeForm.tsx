@@ -6,11 +6,11 @@ import { View, Text } from 'react-native';
 import AppHeader from '../../ui_packages/components/AppHeader/AppHeader';
 import AppTextInput from '../../ui_packages/components/TextInput/TextInput';
 import AppButton from '../../ui_packages/components/Button/AppButton';
-import { userUpdateRequestSchema,type userUpdateRequestModel, authInforSchema } from '../../core/models';
-import { useGetUserByIdQuery,useUpdateUserInforMutation } from '../../core/redux-store/hooks/profile/api';
-import { useGetAllQuery } from '../../core/redux-store/hooks/activity-rate/api';
-import { useAppSelector,useAppDispatch } from '../../core/redux-store/hooks/base';
-import { selectUser,updateToken } from '../../core/redux-store/slices/auth/authSlice';
+import { userUpdateRequestSchema,type userUpdateRequestModel, authInforSchema } from '@/models';
+import { useGetUserByIdQuery,useUpdateUserInforMutation } from '@/redux-store/hooks/profile';
+import { useGetAllQuery } from '@/redux-store/hooks/activity-rate';
+import { useAppSelector,useAppDispatch } from '@/redux-store/';
+import { selectUser,updateToken } from '@/redux-store/slices';
 import { Dropdown } from 'react-native-paper-dropdown';
 export default function TdeeForm(props: {
     navigation: { goBack: () => void; navigate: (arg0: string) => void };

@@ -1,4 +1,4 @@
-import { cloudflareR2, R2_PUBLIC_DOMAIN} from '../../../global_variables/s3-instances';
+import { cloudflareR2, R2_PUBLIC_DOMAIN} from '@global-vars/index';
 import { PutObjectCommand } from '@aws-sdk/client-s3';
 interface UploadInputType {
     bucket: string;
@@ -6,7 +6,7 @@ interface UploadInputType {
     data: any;
     type: string;
 }
-export default async function S3Upload(input: UploadInputType) {
+export async function S3Upload(input: UploadInputType) {
 
     const params = {
         Bucket: input.bucket,

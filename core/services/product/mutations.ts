@@ -1,4 +1,4 @@
-import { supabase } from '../../../global_variables/supabase';
+import { supabase } from '@global-vars/index';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { USER_KEY } from '../../store/auth/utils';
 

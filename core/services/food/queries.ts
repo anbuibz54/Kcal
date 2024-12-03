@@ -1,4 +1,4 @@
-import { supabase } from '../../../global_variables/supabase';
+import { supabase } from '@global-vars/index';
 interface searchInput{
     textSearch:string;
     from:number;

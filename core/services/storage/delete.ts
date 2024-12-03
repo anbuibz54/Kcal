@@ -1,10 +1,10 @@
-import { cloudflareR2 } from '../../../global_variables/s3-instances';
+import { cloudflareR2 } from '@global-vars/index';
 import { DeleteObjectCommand } from '@aws-sdk/client-s3';
 interface DeleteInputType {
     bucket: string;
     key: string;
 }
-export default async function S3Delete(input: DeleteInputType) {
+export async function S3Delete(input: DeleteInputType) {
 
     const params = {
         Bucket: input.bucket,

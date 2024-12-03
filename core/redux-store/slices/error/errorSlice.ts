@@ -1,4 +1,4 @@
-import { ErrorModel } from '../../../models';
+import { ErrorModel } from '@/models';
 import type { RootState } from '../../store';
 import { createAppSlice } from '../../createAppSlice';
 import type { PayloadAction } from '@reduxjs/toolkit';

@@ -10,9 +10,8 @@ import AppButton from '../../ui_packages/components/Button/AppButton';
 import { TextInput } from 'react-native-paper';
 import ROUTES from '../../navigations/routes';
 import { authRequestBodySchema } from '../../core/models';
-import { useSigninMutation } from '../../core/redux-store/hooks/auth/api';
-import { selectUser } from '../../core/redux-store/slices/auth/authSlice';
-import { useAppSelector } from '../../core/redux-store/hooks/base';
+import { useSigninMutation, useAppSelector } from '@/redux-store/hooks';
+import { selectUser } from '@/redux-store/slices';
 export default function LoginForm(props: {
   navigation: { goBack: () => void; navigate: (arg0: string) => void };
 }) {

@@ -3,7 +3,7 @@ import {View, FlatList, TouchableOpacity} from 'react-native';
 import AppHeader from '../../../ui_packages/components/AppHeader/AppHeader';
 import ProductCard from '../../../ui_packages/components/ProductCard/ProductCard';
 import Loading from '../../ScanningFood/Loading';
-import {productServices} from '../../../core/services';
+import {productServices} from '@/services';
 import ROUTES from '../../../navigations/routes';
 import type { RootStackParamList } from '../../../navigations/RootStack';
 import { StackScreenProps } from '@react-navigation/stack';

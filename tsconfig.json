@@ -2,6 +2,11 @@
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
     // ...
-    "strict": true
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+        "@/*": ["./core/*"],
+        "@global-vars/*":["./global_variables/*"],
+    }
   }
 }

@@ -5,13 +5,13 @@ import {Image, View, ScrollView, TouchableOpacity} from 'react-native';
 import {Text, Icon} from 'react-native-paper';
 import AppButton from '../Button/AppButton';
 import AppTextInput from '../TextInput/TextInput';
-import {foodServices} from '../../../core/services';
+import {foodServices} from '@/services';
 import AppMessage from '../Message/AppMessage';
 import {setMessage} from '../../../core/store/message/messageSlice';
 import {z as zod} from 'zod';
 import {fromError} from 'zod-validation-error';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { type FoodModel } from '../../../core/models';
+import { type FoodModel } from '@/models';
 interface IFavoriteFormProps {
   food?: FoodModel;
   thumbnail?: string;

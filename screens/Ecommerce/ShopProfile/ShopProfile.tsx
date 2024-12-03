@@ -11,7 +11,7 @@ import AppAvatar from '../../../ui_packages/components/Avatar/Avatar';
 import AppMessage from '../../../ui_packages/components/Message/AppMessage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {USER_KEY} from '../../../core/store/auth/utils';
-import {productServices} from '../../../core/services';
+import {productServices} from '@/services';
 import type { RootStackParamList } from '../../../navigations/RootStack';
 import { StackScreenProps } from '@react-navigation/stack';
 import ROUTES from '../../../navigations/routes';

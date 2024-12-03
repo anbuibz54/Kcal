@@ -1,7 +1,7 @@
 import { createApi,fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import { profileServices } from './services';
-import type { userGetResponseModel,userUpdateRequestModel } from '../../../models';
+import { profileServices } from '@/services';
+import type { userGetResponseModel,userUpdateRequestModel } from '@/models';
 
 
 export const profileApi = createApi({

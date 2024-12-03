@@ -12,12 +12,10 @@ import {z as zod} from 'zod';
 import {fromError} from 'zod-validation-error';
 import 'react-native-get-random-values';
 import uuid from 'react-native-uuid';
-import S3Upload from '../../../core/services/storage/upload';
-import S3Delete from '../../../core/services/storage/delete';
 import {setMessage} from '../../../core/store/message/messageSlice';
 import AppMessage from '../../../ui_packages/components/Message/AppMessage';
 import Loading from '../../ScanningFood/Loading';
-import {shopServices} from '../../../core/services';
+import {shopServices, storageServices} from '../../../core/services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {USER_KEY} from '../../../core/store/auth/utils';
 import ROUTES from '../../../navigations/routes';
@@ -56,7 +54,7 @@ export default function ShopManage(props: {
   async function handleS3Upload(path: string) {
     const file = await fetch(path);
     const data = await file.blob();
-    const uploadUrl = await S3Upload({
+    const uploadUrl = await storageServices.S3Upload({
       bucket: 'kcal',
       key: `${uuid.v4()}.jpeg`,
       data: data,
@@ -66,7 +64,7 @@ export default function ShopManage(props: {
   }
   async function handleS3Delete(url: string) {
     const key = url.replace('https://bilesoft.org/', '');
-    await S3Delete({bucket: 'kcal', key: key});
+    await storageServices.S3Delete({bucket: 'kcal', key: key});
   }
   async function handleLocalUpload() {
     const res = await launchImageLibrary({

@@ -12,10 +12,10 @@ import darkTheme from './ui_packages/theme/dark-theme.json';
 import { StatusBar, useColorScheme } from 'react-native';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { RootStack } from './navigations/RootStack';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { store } from './core/redux-store/store';
-import { navigationRef } from './global_variables/axios_instance';
+import { store } from '@/redux-store/store';
+import { navigationRef } from '@global-vars/index';
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   const NavigationLightTheme = adaptNavigationTheme({

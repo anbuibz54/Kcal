@@ -4,7 +4,7 @@ import {View, Image, ScrollView, TouchableOpacity} from 'react-native';
 import {Text, useTheme} from 'react-native-paper';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 import MiniAppCard from '../../ui_packages/components/MiniAppCard/MiniAppCard';
-import {APPS} from '../../global_variables/apps';
+import {APPS} from '@global-vars/index';
 import ROUTES from '../../navigations/routes';
 import WaterTracker from '../../ui_packages/components/WaterTracker/WaterTracker';
 // import {launchImageLibrary} from 'react-native-image-picker';

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createApi,fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import { authServices } from '../../../services';
-import { authRequestBodyModel } from '../../../models';
-import { logIn,logOut } from '../../slices/auth/authSlice';
+import { authServices } from '@/services';
+import { authRequestBodyModel } from '@/models';
+import { logIn,logOut } from '@/redux-store/slices/auth';
 export const authApi = createApi({
     baseQuery:fetchBaseQuery({}),
     tagTypes:['authApi'],
