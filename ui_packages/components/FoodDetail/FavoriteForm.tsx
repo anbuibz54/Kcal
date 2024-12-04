@@ -5,13 +5,16 @@ import {Image, View, ScrollView, TouchableOpacity} from 'react-native';
 import {Text, Icon} from 'react-native-paper';
 import AppButton from '../Button/AppButton';
 import AppTextInput from '../TextInput/TextInput';
-import {foodServices} from '@/services';
+import {foodServices, favoriteFoodServices, storageServices} from '@/services';
 import AppMessage from '../Message/AppMessage';
 import {setMessage} from '../../../core/store/message/messageSlice';
 import {z as zod} from 'zod';
 import {fromError} from 'zod-validation-error';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { type FoodModel } from '@/models';
+import { convertImageToBase64 } from '@/utils/imge-to-base64';
+import uuid from 'react-native-uuid';
+import { R2_PUBLIC_DOMAIN } from '@global-vars/s3-instances';
 interface IFavoriteFormProps {
   food?: FoodModel;
   thumbnail?: string;
@@ -20,7 +23,7 @@ interface IFavoriteFormProps {
 export default function FavoriteForm(props: IFavoriteFormProps) {
   const {food, thumbnail, onBack} = props;
   const [description, setDescription] = React.useState<string>('');
-  const [image, setImage] = React.useState<any>(null);
+  const [image, setImage] = React.useState<string>('');
   const formSchema = zod.object({
     description: zod.string().min(1),
     thumbnail: zod.string().min(1),
@@ -34,12 +37,31 @@ export default function FavoriteForm(props: IFavoriteFormProps) {
       setImage(imageUri);
     }
   }
+  async function hanldeS3Upload(){
+    const path = image ? image : props.thumbnail;
+    if(path && !path.includes(R2_PUBLIC_DOMAIN)){
+    const file = await fetch(path);
+    const data = await file.blob();
+    const img64 = await convertImageToBase64(data);
+    const imageUrl = await storageServices.S3Upload({
+      bucket: 'kcal',
+      key: `${uuid.v4()}.jpeg`,
+      data: img64,
+      type: file.type,
+    });
+    return imageUrl;
+    }
+    else{
+      return image;
+    }
+  }
   async function addToFavorite() {
     const validate = formSchema.safeParse({
       description: description,
-      thumbnail: thumbnail, // note: invalid email
+      thumbnail: thumbnail ? thumbnail : image,
     });
     if (validate.success) {
+      const imageUrl = await hanldeS3Upload();
       const createdFood = await foodServices.createFood({
         ...food,
         servingWeight: 100,
@@ -47,12 +69,15 @@ export default function FavoriteForm(props: IFavoriteFormProps) {
       });
       console.log({createdFood});
       if (createdFood) {
-        const createdFavorite = await foodServices.createFavoriteFood({
-          food_id: createdFood.data.id,
+        const createdFavorite = await favoriteFoodServices.createFood({
+          foodId: createdFood.data.id,
           description: description,
-          thumbnail: thumbnail,
+          thumbnail: imageUrl,
         });
-        setMessage({message:'Add to favorites successfully',type:'success'});
+        if(createdFavorite?.isSuccess){
+          console.log({createdFavorite});
+          setMessage({message:'Add to favorites successfully',type:'success'});
+        }
       }
     } else {
       if (validate.error) {
@@ -94,7 +119,7 @@ export default function FavoriteForm(props: IFavoriteFormProps) {
         )}
         {!thumbnail && (
           <View style={{width: '40%'}}>
-            <AppButton>Upload</AppButton>
+            <AppButton onPress={handleUpload}>Upload Thumbnail</AppButton>
           </View>
         )}
       </View>

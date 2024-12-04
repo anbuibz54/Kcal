@@ -1,7 +1,5 @@
-import { getApiInstance, supabase } from '@global-vars/index';
+import { getApiInstance} from '@global-vars/index';
 import type { FoodModel, UpsertFoodRequest, AnalyzeFoodRequest, ApiResultModel } from '@/models';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { USER_KEY } from '../../store/auth/utils';
 
 const oapi = getApiInstance();
 export async function createFood(input: UpsertFoodRequest) {
@@ -18,19 +16,4 @@ export async function analyzeFood(input: AnalyzeFoodRequest) {
     const url = 'Food/analyze';
     const response = await oapi.post<ApiResultModel<FoodModel>>(url,input);
     return response.data;
-}
-export async function createFavoriteFood(input: any) {
-    const json = await AsyncStorage.getItem(USER_KEY);
-    if (json) {
-        const user = JSON.parse(json);
-        input.user_id = user.id;
-        const response = await supabase.from('Favorite_Foods').insert({ ...input }).select().single();
-        if (response.data) {
-            return response.data;
-        }
-        else {
-            return null;
-        }
-    }
-    else {return null;}
 }

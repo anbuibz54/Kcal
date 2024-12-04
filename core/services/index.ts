@@ -5,3 +5,4 @@ export * as shopServices from './shop';
 export * as storageServices from './storage';
 export * as activityRateServices from './activity-rate';
 export * as profileServices from './profile';
+export * as favoriteFoodServices from './favorite-food';
