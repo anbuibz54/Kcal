@@ -12,6 +12,7 @@ export async function S3Upload(input: UploadInputType) {
         Bucket: input.bucket,
         Key: input.key,
         Body: input.data,
+        ContentType: input.type,
     };
     const command = new PutObjectCommand(params);
     let url = null;

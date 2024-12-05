@@ -1,24 +1,23 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
-import {View} from 'react-native';
-import {Text, Snackbar, Icon} from 'react-native-paper';
-import {useMessage, reset} from '../../../core/store/message/messageSlice';
+import { View } from 'react-native';
+import { Snackbar } from 'react-native-paper';
+import { useAppDispatch, useAppSelector, selectAlert, closeAlert } from '@/redux-store';
 export default function AppMessage() {
-  const [visible, setVisible] = React.useState<boolean>(true);
-  const {message} = useMessage();
+  const dispatch = useAppDispatch();
+  const alertState = useAppSelector(selectAlert);
   const onDismissSnackBar = () => {
-    setVisible(false);
-    reset();
+    dispatch(closeAlert());
   };
-  React.useEffect(() => {
-    if (message) {
-      setVisible(true);
-    }
-  }, [message]);
+  const alertColor = () => {
+    return alertState.alert?.type === 'error' ? '#E23E3E' : alertState.alert?.type === 'info' ? '#FF9C00' : alertState.alert?.type === 'success' ? '#31B057' : '';
+  };
+  const alertIcon = () => {
+    return alertState.alert?.type === 'error' ? 'alert-circle-outline' : alertState.alert?.type === 'success' ? 'check' : 'alpha-i-circle-outline';
+  };
   return (
     <>
-      {visible &&message && (
+      {alertState.show && (
         <View
           style={{
             width: '100%',
@@ -30,13 +29,13 @@ export default function AppMessage() {
             justifyContent: 'space-between',
           }}>
           <Snackbar
-            visible={visible}
+            visible={alertState.show}
             duration={2000}
             onDismiss={onDismissSnackBar}
-            icon={message.icon}
-            onIconPress={()=>{}}
-            style={{backgroundColor:message.color,}}>
-           {message.message}
+            icon={alertIcon()}
+            onIconPress={() => { }}
+            style={{ backgroundColor: alertColor() }}>
+            {alertState.alert?.message}
           </Snackbar>
         </View>
       )}

@@ -2,7 +2,7 @@ import * as React from 'react';
 import {View, FlatList, TouchableOpacity} from 'react-native';
 import AppHeader from '../../../ui_packages/components/AppHeader/AppHeader';
 import ProductCard from '../../../ui_packages/components/ProductCard/ProductCard';
-import Loading from '../../ScanningFood/Loading';
+import Loading from '../../../ui_packages/components/AppLoading/Loading';
 import {productServices} from '@/services';
 import ROUTES from '../../../navigations/routes';
 import type { RootStackParamList } from '../../../navigations/RootStack';

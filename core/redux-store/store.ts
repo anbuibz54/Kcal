@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './slices/auth/authSlice';
 import errorReducer from './slices/error/errorSlice';
+import alertReducer from './slices/alert/alertSlice';
 import { activityRateApi } from './hooks/activity-rate/api';
 import { profileApi } from './hooks/profile/api';
 import { authApi } from './hooks/auth/api';
@@ -9,9 +10,10 @@ export const store = configureStore(
         reducer: {
             auth: authReducer,
             error: errorReducer,
+            alert: alertReducer,
             [activityRateApi.reducerPath]: activityRateApi.reducer,
             [authApi.reducerPath]: authApi.reducer,
-            [profileApi.reducerPath]:profileApi.reducer
+            [profileApi.reducerPath]:profileApi.reducer,
 
         },
         middleware:(getDefaultMiddleware)=>{
@@ -20,7 +22,7 @@ export const store = configureStore(
             .concat(authApi.middleware)
             .concat(profileApi.middleware);
             return res;
-        }
+        },
     });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

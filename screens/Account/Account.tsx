@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
 import {View, Text} from 'react-native';
@@ -85,7 +84,6 @@ export default function Account(props: {
           );
         })}
       </View>
-      <AppMessage />
     </View>
   );
 }

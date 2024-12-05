@@ -6,21 +6,22 @@ import {Text, Icon} from 'react-native-paper';
 import AppButton from '../Button/AppButton';
 import AppTextInput from '../TextInput/TextInput';
 import {foodServices, favoriteFoodServices, storageServices} from '@/services';
-import AppMessage from '../Message/AppMessage';
-import {setMessage} from '../../../core/store/message/messageSlice';
+import { useAppDispatch, showAlert } from '@/redux-store';
 import {z as zod} from 'zod';
 import {fromError} from 'zod-validation-error';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { type FoodModel } from '@/models';
-import { convertImageToBase64 } from '@/utils/imge-to-base64';
 import uuid from 'react-native-uuid';
 import { R2_PUBLIC_DOMAIN } from '@global-vars/s3-instances';
+import Loading from '../AppLoading/Loading';
 interface IFavoriteFormProps {
   food?: FoodModel;
   thumbnail?: string;
   onBack: () => void;
 }
 export default function FavoriteForm(props: IFavoriteFormProps) {
+  const dispatch = useAppDispatch();
+  const [loading, setLoading] = React.useState<boolean>(false);
   const {food, thumbnail, onBack} = props;
   const [description, setDescription] = React.useState<string>('');
   const [image, setImage] = React.useState<string>('');
@@ -42,12 +43,11 @@ export default function FavoriteForm(props: IFavoriteFormProps) {
     if(path && !path.includes(R2_PUBLIC_DOMAIN)){
     const file = await fetch(path);
     const data = await file.blob();
-    const img64 = await convertImageToBase64(data);
     const imageUrl = await storageServices.S3Upload({
       bucket: 'kcal',
       key: `${uuid.v4()}.jpeg`,
-      data: img64,
-      type: file.type,
+      data: data,
+      type: data.type,
     });
     return imageUrl;
     }
@@ -56,35 +56,41 @@ export default function FavoriteForm(props: IFavoriteFormProps) {
     }
   }
   async function addToFavorite() {
-    const validate = formSchema.safeParse({
-      description: description,
-      thumbnail: thumbnail ? thumbnail : image,
-    });
-    if (validate.success) {
-      const imageUrl = await hanldeS3Upload();
-      const createdFood = await foodServices.createFood({
-        ...food,
-        servingWeight: 100,
-        servingUnit: 'g',
+    setLoading(true);
+    try{
+      const validate = formSchema.safeParse({
+        description: description,
+        thumbnail: thumbnail ? thumbnail : image,
       });
-      console.log({createdFood});
-      if (createdFood) {
-        const createdFavorite = await favoriteFoodServices.createFood({
-          foodId: createdFood.data.id,
-          description: description,
-          thumbnail: imageUrl,
+      if (validate.success) {
+        const imageUrl = await hanldeS3Upload();
+        const createdFood = await foodServices.createFood({
+          ...food,
+          servingWeight: 100,
+          servingUnit: 'g',
         });
-        if(createdFavorite?.isSuccess){
-          console.log({createdFavorite});
-          setMessage({message:'Add to favorites successfully',type:'success'});
+        if (createdFood) {
+          const createdFavorite = await favoriteFoodServices.createFood({
+            foodId: createdFood.data.id,
+            description: description,
+            thumbnail: imageUrl,
+          });
+          if(createdFavorite?.isSuccess){
+           dispatch( showAlert({message:'Add to favorites successfully',type:'success'}));
+           onBack();
+          }
+        }
+      } else {
+        if (validate.error) {
+          const validationError = fromError(validate.error);
+          dispatch(showAlert({message: validationError.toString(), type: 'error'}));
         }
       }
-    } else {
-      if (validate.error) {
-        const validationError = fromError(validate.error);
-        setMessage({message: validationError.toString(), type: 'error'});
-      }
     }
+    catch{
+      dispatch(showAlert({message: 'Add to Favorites failed', type: 'error'}));
+    }
+    setLoading(false);
   }
   return (
     <ScrollView
@@ -138,12 +144,11 @@ export default function FavoriteForm(props: IFavoriteFormProps) {
         <AppButton
           onPress={async () => {
             await addToFavorite();
-            onBack();
           }}>
           Add to Favorites
         </AppButton>
       </View>
-      <AppMessage />
+      {loading && <Loading />}
     </ScrollView>
   );
 }

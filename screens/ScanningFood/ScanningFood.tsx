@@ -3,7 +3,7 @@ import * as React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useCameraPermission, useCameraDevice } from 'react-native-vision-camera';
 import { Camera } from 'react-native-vision-camera';
-import Loading from './Loading';
+import Loading from '../../ui_packages/components/AppLoading/Loading';
 import AppButton from '../../ui_packages/components/Button/AppButton';
 import FoodDetail from '../../ui_packages/components/FoodDetail/FoodDetail';
 import { type FoodModel } from '@/models';
@@ -26,15 +26,20 @@ export default function ScanningFood() {
   const [loading, setLoading] = React.useState<boolean>(false);
   async function scanning(path: string) {
     setLoading(true);
-    const file = await fetch(path);
-    const data = await file.blob();
-    const img64 = await convertImageToBase64(data);
-    const scanRes = await foodServices.analyzeFood({ image: img64, mimeType: data.type });
-    if (scanRes.data
-    ) {
-      setFood(scanRes.data);
+    try {
+      const file = await fetch(path);
+      const data = await file.blob();
+      const img64 = await convertImageToBase64(data);
+      const scanRes = await foodServices.analyzeFood({ image: img64, mimeType: data.type });
+      if (scanRes.data
+      ) {
+        setFood(scanRes.data);
+      }
+      setLoading(false);
     }
-    setLoading(false);
+    catch {
+      setLoading(false);
+    }
   }
   async function handleTakePhoto() {
     if (camera.current) {
@@ -62,8 +67,15 @@ export default function ScanningFood() {
   React.useEffect(() => {
     requestPermission();
   }, [requestPermission]);
-  if (!hasPermission) {return <View />;}
-  if (device == null) {return <View />;}
+  React.useEffect(()=>{
+    return ()=>{
+      setFood(null);
+      setImage(null);
+      setLoading(false);
+    };
+  },[]);
+  if (!hasPermission) { return <View />; }
+  if (device == null) { return <View />; }
   return (
     <View style={StyleSheet.absoluteFill}>
       <Camera

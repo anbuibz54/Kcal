@@ -15,7 +15,7 @@ import uuid from 'react-native-uuid';
 import { storageServices, productServices } from '@/services';
 import {setMessage} from '../../../core/store/message/messageSlice';
 import AppMessage from '../../../ui_packages/components/Message/AppMessage';
-import Loading from '../../ScanningFood/Loading';
+import Loading from '../../../ui_packages/components/AppLoading/Loading';
 import ROUTES from '../../../navigations/routes';
 import type { RootStackParamList } from '../../../navigations/RootStack';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -257,7 +257,6 @@ export default function ProductManage(props: Props) {
           </AppButton>
         </View>
       </ScrollView>
-      <AppMessage />
       {loading && <Loading />}
     </View>
   );

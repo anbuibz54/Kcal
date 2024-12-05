@@ -26,9 +26,9 @@ export const authSilce = createAppSlice({
                 return input;
             }, {
                 fulfilled: (state, action) => {
-                    state.status = 'signIn',
-                        state.value = action.payload
-                }
+                    state.status = 'signIn';
+                        state.value = action.payload;
+                },
             }),
             logOut: create.asyncThunk(async () => {
                 await removeToken();
@@ -41,20 +41,20 @@ export const authSilce = createAppSlice({
             hydrate: create.asyncThunk(async () => {
                 try {
                     const userToken = await getToken();
-                    console.log({userToken})
+                    console.log({userToken});
                     if (userToken !== null) {
                         return userToken;
                     } else {
-                        return null
+                        return null;
                     }
                 } catch (e) {
-                    return null
+                    return null;
                 }
             }, {
                 fulfilled: (state, action) => {
                     if (action.payload?.id) {
-                        state.status = 'signIn',
-                        state.value = action.payload
+                        state.status = 'signIn';
+                        state.value = action.payload;
                     }
                     else {
                         state.status = 'logOut';

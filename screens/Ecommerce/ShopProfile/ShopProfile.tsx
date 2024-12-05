@@ -159,7 +159,6 @@ export default function ShopProfile(props: Props ) {
           </ScrollView>
         </>
       )}
-      <AppMessage />
     </View>
   );
 }

@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
 import {View} from 'react-native';
@@ -14,7 +14,7 @@ export default function Loading() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor:'#00000010'
+        backgroundColor:'#00000010',
       }}>
       <ActivityIndicator size={'large'} />
     </View>

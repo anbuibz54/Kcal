@@ -14,7 +14,7 @@ import 'react-native-get-random-values';
 import uuid from 'react-native-uuid';
 import {setMessage} from '../../../core/store/message/messageSlice';
 import AppMessage from '../../../ui_packages/components/Message/AppMessage';
-import Loading from '../../ScanningFood/Loading';
+import Loading from '../../../ui_packages/components/AppLoading/Loading';
 import {shopServices, storageServices} from '../../../core/services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {USER_KEY} from '../../../core/store/auth/utils';
@@ -201,7 +201,6 @@ export default function ShopManage(props: {
           </AppButton>
         </View>
       </ScrollView>
-      <AppMessage />
       {loading && <Loading />}
     </View>
   );

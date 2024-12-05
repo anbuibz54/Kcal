@@ -11,6 +11,7 @@ import lightTheme from './ui_packages/theme/light-theme.json';
 import darkTheme from './ui_packages/theme/dark-theme.json';
 import { StatusBar, useColorScheme } from 'react-native';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import AppMessage from 'ui_packages/components/Message/AppMessage';
 import { RootStack } from './navigations/RootStack';
 import { Provider } from 'react-redux';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -39,6 +40,7 @@ function App(): React.JSX.Element {
               barStyle={!isDarkMode ? 'light-content' : 'dark-content'}
             />
               <RootStack />
+            <AppMessage />
           </NavigationContainer>
         </PaperProvider>
       </Provider>
