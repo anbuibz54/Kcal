@@ -1,4 +1,8 @@
 import { supabase } from '@global-vars/index';
+import { getApiInstance } from '@global-vars/index';
+import type { ApiResultModel, PaginationResponse, ListFoodRequest, FoodModel } from '@/models';
+
+const oapi = getApiInstance();
 interface searchInput{
     textSearch:string;
     from:number;
@@ -14,4 +18,9 @@ export async function searchFoods(input:searchInput){
     else{
         return null;
     }
+}
+export async function GetFoodsByPage(input: ListFoodRequest){
+    const url = 'Food/all-page';
+    const response = await oapi.post<ApiResultModel<PaginationResponse<FoodModel>>>(url,input);
+    return response.data;
 }

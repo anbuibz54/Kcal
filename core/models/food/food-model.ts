@@ -1,4 +1,5 @@
 import {z} from 'zod';
+import type { PaginationRequest, SortParams } from '@/models';
 export const FoodSchema = z.object({
     id:z.number().nullable().optional(),
     name:z.string().nullable().optional(),
@@ -16,3 +17,11 @@ export type AnalyzeFoodRequest ={
 }
 export type FoodModel = z.infer<typeof FoodSchema>;
 export type UpsertFoodRequest = FoodModel;
+export type FoodFilterParams = {
+    name: string;
+};
+export type ListFoodRequest ={
+    paginationParams: PaginationRequest;
+    sortParams: SortParams;
+    foodFilterParams: FoodFilterParams;
+};
