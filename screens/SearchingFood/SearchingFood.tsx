@@ -10,42 +10,44 @@ import SearchResult from '../../ui_packages/components/SearchResult/SearchResult
 import {foodServices} from '@/services';
 import ROUTES from '../../navigations/routes';
 import {ITEM_PER_PAGE} from '@global-vars/index';
+import { useAppDispatch, useAppSelector, selectListFood, getFoods,setOptions } from '@/redux-store';
+import type { PaginationRequest,FoodModel } from '@/models';
+
+
 export default function SearchingFood(props: {
   navigation: {goBack: () => void; navigate: (arg0: string) => void};
 }) {
-  const [foods, setFoods] = React.useState<any[]>([]);
+  const dispatch = useAppDispatch();
+  const listFoods = useAppSelector(selectListFood);
+  const [foods, setFoods] = React.useState<FoodModel[]>([]);
   const [searchText, setSearchText] = React.useState<string>('');
-  const [offset, setOffset] = React.useState<number>(0);
-  async function initialFood() {
-    const data = await foodServices.searchFoods({
-      textSearch: searchText,
-      from: 0,
-      to: ITEM_PER_PAGE,
-    });
-    if (data) {
-      setFoods(data);
-    }
-  }
+  const [page, setPage] = React.useState<number>(0);
   async function loadMore() {
-    const data = await foodServices.searchFoods({
-      textSearch: searchText,
-      from: offset,
-      to: offset + ITEM_PER_PAGE + 1,
-    });
-    if (data) {
-      setFoods([...foods, ...data]);
-      setOffset(offset + ITEM_PER_PAGE + 1);
-    }
+    dispatch(setOptions({filter:listFoods.filter,sort:listFoods.sort,pagination:{...listFoods.pagination,pageNumber:page + 1}}));
+    setPage(pre => pre + 1);
+  }
+  async function updateParams(){
+
+  }
+  async function loadItems(){
+    dispatch(getFoods());
   }
   async function handleSearch(text: string) {
-    setOffset(0);
+    setPage(0);
     setFoods([]);
-    await initialFood();
   }
+  React.useEffect(()=>{
+    loadItems();
+  },[]);
   React.useEffect(() => {
-    initialFood();
-  }, []);
-
+    console.log({foods});
+  }, [foods]);
+  React.useEffect(() =>{
+    setFoods([...foods,...listFoods.foods]);
+  },[listFoods.foods]);
+  React.useEffect(() =>{
+    loadItems();
+  },[listFoods.filter,listFoods.pagination,listFoods.sort]);
   return (
     <View>
       <AppHeader title="Searching" onBack={() => {}} />
@@ -85,7 +87,7 @@ export default function SearchingFood(props: {
                 onPress={() => {
                   props.navigation.navigate(ROUTES.RECIPE_DETAIL);
                 }}>
-                <SearchResult food={{...food}} />
+                <SearchResult food={food} />
               </TouchableOpacity>
             );
           }}

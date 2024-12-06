@@ -18,7 +18,7 @@ export const activityRateApi = createApi({
                 }
                 catch {
                     return {
-                        error:{}as FetchBaseQueryError,
+                        error:{} as FetchBaseQueryError,
                     };
                 }
             },
