@@ -25,7 +25,6 @@ export default function CreateNewAccount(props: {
   async function handleSingup() {
     try {
       const input = authRequestBodySchema.parse({...credentials});
-      console.log({input});
       register(input);
      }
     catch { }

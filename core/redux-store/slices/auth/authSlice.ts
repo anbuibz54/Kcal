@@ -41,7 +41,6 @@ export const authSilce = createAppSlice({
             hydrate: create.asyncThunk(async () => {
                 try {
                     const userToken = await getToken();
-                    console.log({userToken});
                     if (userToken !== null) {
                         return userToken;
                     } else {

@@ -12,8 +12,7 @@ export async function S3Delete(input: DeleteInputType) {
     };
     const command = new DeleteObjectCommand(params);
     try {
-        const response = await cloudflareR2.send(command);
-        console.log(response);
+        await cloudflareR2.send(command);
     } catch (err) {
         console.error(err);
     }

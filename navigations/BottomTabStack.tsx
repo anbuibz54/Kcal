@@ -1,3 +1,5 @@
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/no-unstable-nested-components */
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Icon, useTheme} from 'react-native-paper';
 import Home from '../screens/Home/Home';
@@ -73,7 +75,6 @@ export default function BottomTabsVariant() {
             },
           }}
         />
-  
         <Tab.Screen
           name={Routes.FAVORITES}
           component={Favorites}

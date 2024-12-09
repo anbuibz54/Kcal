@@ -46,7 +46,6 @@ export default function TdeeForm(props: {
     React.useEffect(()=>{
         if(profile){
             const formattedProfile = userUpdateRequestSchema.safeParse(profile);
-            console.log({profile,formattedProfile});
             if(formattedProfile.data){
                 setUserInfor({...formattedProfile.data});
             }

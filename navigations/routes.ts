@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 const ROUTES = {
     SPLASH_SCREEN: 'splash',
     //Variant1
@@ -29,8 +28,6 @@ const ROUTES = {
     ORDER_RESULT:'order_result',
     ORDER_HISTORY:'order_history',
     SHOP_ORDER_MANAGE:'shop_order_history',
-    MEAL_PLANNING:'meal_planning'
-  
+    MEAL_PLANNING:'meal_planning',
   } as const;
   export default ROUTES;
-  

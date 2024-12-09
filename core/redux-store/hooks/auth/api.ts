@@ -13,7 +13,6 @@ export const authApi = createApi({
             queryFn:async (arg, api, extraOptions, baseQuery)=>{
                 try{
                     const response = await authServices.register(arg);
-                    console.log({resAtApi:response});
                     if(response.isSuccess){
                         api.dispatch(logIn(response.data));
                         return {

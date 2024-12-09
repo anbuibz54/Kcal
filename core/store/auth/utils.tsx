@@ -13,14 +13,13 @@ export type UserType = {
 };
 export const getToken = async () => {
   const res = await AsyncStorage.getItem(USER_KEY);
-  if (!!res) {
+  if (res) {
     return JSON.parse(res);
-  } else return null;
+  } else {return null;}
 };
 export const removeToken = async () => {
   await AsyncStorage.removeItem(USER_KEY);
 };
 export const setToken = async (value: UserType) => {
-  console.log({value});
   await AsyncStorage.setItem(USER_KEY, JSON.stringify(value));
 };

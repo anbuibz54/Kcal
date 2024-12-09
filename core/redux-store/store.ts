@@ -3,6 +3,7 @@ import authReducer from './slices/auth/authSlice';
 import errorReducer from './slices/error/errorSlice';
 import alertReducer from './slices/alert/alertSlice';
 import listFoodStore from './slices/list-food/listFoodSlice';
+import listFavoriteFoodStore from './slices/list-favorite-food/listFavoriteFoodSlice';
 import { activityRateApi } from './hooks/activity-rate/api';
 import { profileApi } from './hooks/profile/api';
 import { authApi } from './hooks/auth/api';
@@ -13,6 +14,7 @@ export const store = configureStore(
             error: errorReducer,
             alert: alertReducer,
             listFood:listFoodStore,
+            listFavoriteFood: listFavoriteFoodStore,
             [activityRateApi.reducerPath]: activityRateApi.reducer,
             [authApi.reducerPath]: authApi.reducer,
             [profileApi.reducerPath]:profileApi.reducer,

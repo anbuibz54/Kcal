@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 
 import * as React from 'react';
-import {View, Image} from 'react-native';
+import {View} from 'react-native';
 import {Text, Icon} from 'react-native-paper';
 import type { FoodModel } from '@/models';
 interface ISearchResultProps{
@@ -24,9 +24,6 @@ export default function SearchResult(props:ISearchResultProps) {
         flexGrow: 1,
         borderRadius:12,
       }}>
-      <Image
-        style={{width: '35%', aspectRatio: 1}}
-        src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
       <View style={{width:'70%',marginLeft:24}}>
         <Text style={{color: '#6CB663', fontSize: 18, fontWeight: '800'}}>
           {food.calories} kcal

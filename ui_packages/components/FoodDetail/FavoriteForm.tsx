@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import * as React from 'react';
 import {Image, View, ScrollView, TouchableOpacity} from 'react-native';
 import {Text, Icon} from 'react-native-paper';
@@ -55,6 +55,17 @@ export default function FavoriteForm(props: IFavoriteFormProps) {
       return image;
     }
   }
+  async function createFavorite(id: number, imageUrl: string){
+    const createdFavorite = await favoriteFoodServices.createFood({
+      foodId: id,
+      description: description,
+      thumbnail: imageUrl,
+    });
+    if(createdFavorite?.isSuccess){
+     dispatch( showAlert({message:'Add to favorites successfully',type:'success'}));
+     onBack();
+    }
+  }
   async function addToFavorite() {
     setLoading(true);
     try{
@@ -64,21 +75,18 @@ export default function FavoriteForm(props: IFavoriteFormProps) {
       });
       if (validate.success) {
         const imageUrl = await hanldeS3Upload();
-        const createdFood = await foodServices.createFood({
-          ...food,
-          servingWeight: 100,
-          servingUnit: 'g',
-        });
-        if (createdFood) {
-          const createdFavorite = await favoriteFoodServices.createFood({
-            foodId: createdFood.data.id,
-            description: description,
-            thumbnail: imageUrl,
+        if(!food?.id){
+          const createdFood = await foodServices.createFood({
+            ...food,
+            servingWeight: 100,
+            servingUnit: 'g',
           });
-          if(createdFavorite?.isSuccess){
-           dispatch( showAlert({message:'Add to favorites successfully',type:'success'}));
-           onBack();
+          if (createdFood) {
+            await createFavorite(createdFood.data.id as number,imageUrl as string);
           }
+        }
+        else{
+          await createFavorite(food.id as number,imageUrl as string);
         }
       } else {
         if (validate.error) {

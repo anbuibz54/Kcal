@@ -23,7 +23,7 @@ export default function FoodDetail(props: FoodDetailProps) {
   const [showForm, setShowForm] = React.useState(false);
   return (
     <View style={StyleSheet.absoluteFill}>
-      <View
+      <ScrollView
         style={{
           width: '100%',
           height: '70%',
@@ -37,7 +37,7 @@ export default function FoodDetail(props: FoodDetailProps) {
           <ScrollView
             style={{
               width: '100%',
-              height: '90%',
+              height: '100%',
               position: 'relative',
             }}>
             <TouchableOpacity
@@ -149,7 +149,9 @@ export default function FoodDetail(props: FoodDetailProps) {
               <View style={{width: '100%', marginBottom: 32}}>
                 <AppButton mode="text">Read More...</AppButton>
               </View>
-              <View style={{width: '100%', paddingHorizontal: 20}}>
+              {
+                !thumbnail && (
+                  <View style={{width: '100%', paddingHorizontal: 20}}>
                 <AppButton
                   onPress={() => {
                     setShowForm(true);
@@ -157,6 +159,8 @@ export default function FoodDetail(props: FoodDetailProps) {
                   Add to Favorites
                 </AppButton>
               </View>
+                )
+              }
             </View>
           </ScrollView>
         )}
@@ -169,7 +173,7 @@ export default function FoodDetail(props: FoodDetailProps) {
             thumbnail={thumbnail}
           />
         )}
-      </View>
+      </ScrollView>
     </View>
   );
 }

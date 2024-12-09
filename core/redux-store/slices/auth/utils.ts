@@ -14,6 +14,5 @@ export const removeToken = async () => {
   await AsyncStorage.removeItem(USER_KEY);
 };
 export const setToken = async (value: authResponseModel) => {
-  console.log({value});
   await AsyncStorage.setItem(USER_KEY, JSON.stringify(value));
 };

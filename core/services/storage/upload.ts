@@ -17,8 +17,7 @@ export async function S3Upload(input: UploadInputType) {
     const command = new PutObjectCommand(params);
     let url = null;
     try {
-        const response = await cloudflareR2.send(command);
-        console.log(response);
+        await cloudflareR2.send(command);
         url = `${R2_PUBLIC_DOMAIN}${input.key}`;
     } catch (err) {
         console.error(err);

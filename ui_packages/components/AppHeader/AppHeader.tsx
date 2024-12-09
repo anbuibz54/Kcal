@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import * as React from 'react';
 import {Appbar, useTheme} from 'react-native-paper';
 
